@@ -1,5 +1,4 @@
-# Merkly
-
+# Merkly - The python Merkle Tree
 
 [![Test](https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/olivmath/merkly/actions/workflows/test.yml)
 ![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
@@ -10,22 +9,36 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)
 ![PyPI - License](https://img.shields.io/pypi/l/merkly)
 
-
 - 🌳 The simple and easy implementation of Merkle Tree
 
 ## CREDITS
-[![GitHub Contributors Image](https://contrib.rocks/image?repo=olivmath/merkly)](https://github.com/olivmath/merkly/graphs/contributors)
 
-## HOW IT WORKS
+[![GitHub Contributors Image](https://contrib.rocks/image?repo=olivmath/merkly)](https://github.com/olivmath/merkly/graphs/contributors)
 
 ## HOW TO INSTALL
 
+```
+pip install merkly
+```
+
+```
+poetry add merkly
+```
+
+## HOW IT WORKS
+
+This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
+
+- [x] Create
+- [x] Make Root
+- [x] Make Proof
+- [x] Validate Leafs
+
+
 ## CONTRIBUTING
 
-[CONTRIBUTING](CONTRIBUTING.md)
+Follow the guide of development -> [CONTRIBUTING](CONTRIBUTING.md)
 
 ## LICENSE
 
 [MIT](LICENSE)
-
-
