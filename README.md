@@ -31,10 +31,10 @@ poetry add merkly
 
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
-- [x] Create
-- [x] Make Root
-- [x] Make Proof
-- [x] Validate Leafs
+- [x] Create Leaf
+- [ ] Create Root
+- [ ] Create Proof
+- [ ] Validate Leafs
 
 ## CONTRIBUTING
 
