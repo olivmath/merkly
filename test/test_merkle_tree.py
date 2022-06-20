@@ -1,11 +1,11 @@
-from merkly import MerkleTree
+from merkly.mtree import MerkleTree
 
 def test_merkle_tree_constructor():
   tree = MerkleTree([
     "a", "b", "c", "d"
   ])
 
-  assert tree.list == [
+  assert tree.leafs == [
     '80084bf2fba02475726feb2cab2d8215eab14bc6bdd8bfb2c8151257032ecd8b',
     'b039179a8a4ce2c252aa6f2f25798251c19b75fc1508d9d511a191e0487d64a7',
     '263ab762270d3b73d3e2cddf9acc893bb6bd41110347e5d5e4bd1d3c128ea90a',
