@@ -15,5 +15,3 @@ pytest = "^7.1.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-pypi-token = "pypi-AgEIcHlwaS5vcmcCJGE2MTRiNDFmLWRlNDUtNGExZS1hNWMzLTEwMDc0ZGU4MWYxYgACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYgTvz5BIY-sju_ou6wgnfxClx_Yu0R2YXN_3kOcElqN28"
