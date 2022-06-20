@@ -1,0 +1,9 @@
+.vscode
+*cache*
+sample*
+./env/
+.cov*
+*.xml
+*lock
+.DS*
+dist
