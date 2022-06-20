@@ -1,0 +1,7 @@
+{
+	"name": "Existing Dockerfile",
+	"context": "..",
+	"dockerFile": "../Dockerfile",
+	"extensions": [],
+	"postCreateCommand": "echo 'Hello Container'"
+}
