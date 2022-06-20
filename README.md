@@ -1,6 +1,6 @@
 # 🌳 Merkly
 
-  The **simple and easy** implementation of **Python Merkle Tree**
+The **simple and easy** implementation of **Python Merkle Tree**
 
 ---
 
@@ -20,11 +20,11 @@
 ## HOW TO INSTALL
 
 ```
-pip install merkly
+poetry add merkly
 ```
 
 ```
-poetry add merkly
+pip install merkly
 ```
 
 ## HOW IT WORKS
