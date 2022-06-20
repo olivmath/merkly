@@ -1,4 +1,8 @@
-# Merkly - The python Merkle Tree
+# 🌳 Merkly
+
+  The **simple and easy** implementation of **Python Merkle Tree**
+
+---
 
 [![Test](https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/olivmath/merkly/actions/workflows/test.yml)
 ![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
@@ -8,8 +12,6 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/merkly)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)
 ![PyPI - License](https://img.shields.io/pypi/l/merkly)
-
-- 🌳 The simple and easy implementation of Merkle Tree
 
 ## CREDITS
 
@@ -33,7 +35,6 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 - [x] Make Root
 - [x] Make Proof
 - [x] Validate Leafs
-
 
 ## CONTRIBUTING
 
