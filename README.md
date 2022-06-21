@@ -32,14 +32,14 @@ pip install merkly
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
 - [x] Create Leaf
-- [ ] Create Root
+- [x] Create Root
 - [ ] Create Proof
 - [ ] Validate Leafs
 
 ## CONTRIBUTING
 
-Before read a code of conduct: **[CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)**
-Follow the guide of development: **[CONTRIBUTING](CONTRIBUTING.md)**
+- Before read a code of conduct: **[CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)**
+- Follow the guide of development: **[CONTRIBUTING](CONTRIBUTING.md)**
 
 ## LICENSE
 
