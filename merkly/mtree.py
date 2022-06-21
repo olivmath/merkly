@@ -1,13 +1,13 @@
+from merkly.utils.crypto import merkle_root, keccak
 from merkly.utils.math import is_power_2
-from merkly.utils.crypto import keccak
 from typing import List
 
 
 class MerkleTree(object):
   """
-  # Merkle Tree
+  # 🌳 Merkle Tree
   - You can passa raw data
-  - They will hashed by `sha3-256`
+  - They will hashed by `keccak-256`
   """
   def __init__(self, leafs: List[str]) -> None:
     if not is_power_2(leafs.__len__()):
@@ -21,5 +21,8 @@ class MerkleTree(object):
     )
 
   @property
-  def root(self): ...
-
+  def root(self):
+    """
+    # Get a root of merkle tree
+    """
+    return merkle_root(self.leafs)[0]
