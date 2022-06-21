@@ -38,7 +38,8 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 
 ## CONTRIBUTING
 
-Follow the guide of development -> [CONTRIBUTING](CONTRIBUTING.md)
+Before read a code of conduct: **[CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)**
+Follow the guide of development: **[CONTRIBUTING](CONTRIBUTING.md)**
 
 ## LICENSE
 
