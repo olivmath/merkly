@@ -1,6 +1,6 @@
 .hypothesis
 .vscode
-*pycache*
+*cache*
 sample*
 ./env/
 .cov*
