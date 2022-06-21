@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "merkly"
-version = "0.2.0"
+version = "0.3.0"
 readme = "README.md"
 description = "🌳 The simple and easy implementation of Merkle Tree"
 authors = ["Lucas Oliveira <olivmath@protonmail.com>"]
@@ -8,6 +8,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.7"
+pysha3 = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

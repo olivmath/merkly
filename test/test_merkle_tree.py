@@ -1,13 +1,27 @@
 from merkly.mtree import MerkleTree
+from pytest import raises, mark
+from typing import List
 
-def test_merkle_tree_constructor():
-  tree = MerkleTree([
-    "a", "b", "c", "d"
-  ])
+def test_simple_merkle_tree_constructor():
+  x = ["a", "b", "c", "d"]
+  tree = MerkleTree(x)
 
   assert tree.leafs == [
-    '80084bf2fba02475726feb2cab2d8215eab14bc6bdd8bfb2c8151257032ecd8b',
-    'b039179a8a4ce2c252aa6f2f25798251c19b75fc1508d9d511a191e0487d64a7',
-    '263ab762270d3b73d3e2cddf9acc893bb6bd41110347e5d5e4bd1d3c128ea90a',
-    '4ce8765e720c576f6f5a34ca380b3de5f0912e6e3cc5355542c363891e54594b',
+    '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb',
+    'b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510',
+    '0b42b6393c1f53060fe3ddbfcd7aadcca894465a5a438f69c87d790b2299b9b2',
+    'f1918e8562236eb17adc8502332f4c9c82bc14e19bfc0aa10ab674ff75b3d2f3',
   ]
+
+@mark.parametrize(
+  "x",
+  [
+    ["a", "b", "c"],
+    ["a", "b", "c", "d", "e"],
+    ["a", "b", "c", "d", "e", "f"],
+    ["a", "b", "c", "d", "e", "f", "g"],
+  ]
+)
+def test_error_simple_merkle_tree_constructor(x: List[str]):
+  with raises(Exception):
+    MerkleTree(x)
