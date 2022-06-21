@@ -8,9 +8,9 @@ The **simple and easy** implementation of **Python Merkle Tree**
 ![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/olivmath/merkly)
 
-![PyPI](https://img.shields.io/pypi/v/merkly)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/merkly)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)
+[![PyPI](https://img.shields.io/pypi/v/merkly)](https://pypi.org/project/merkly/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/merkly)](https://pypi.org/project/merkly/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)](https://pypi.org/project/merkly/)
 ![PyPI - License](https://img.shields.io/pypi/l/merkly)
 
 ## CREDITS
