@@ -45,7 +45,8 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 - [ ] Create Proof
 - [ ] Validate Leafs
 
-![Merkle Tree](assets/merkle-tree.png)
+<!-- ![Merkle Tree](assets/merkle-tree.png) -->
+<img width="1664" alt="merkle-tree" src="https://user-images.githubusercontent.com/50037567/174931499-813e680e-c7e0-4055-8159-93497b4a4ee2.png">
 
 ## How to Use
 
