@@ -32,11 +32,12 @@ def test_error_simple_merkle_tree_constructor(x: List[str]):
 @mark.parametrize(
   "x, root",
   [
-    (["a", "b", "c", "d", "e", "f", "g", "h"], "724655eedd83ac8b58d2d090f21a34755e5da82713332645e7db67aec88740ba"),
-    (["a", "b", "c", "d"], "f90854ce2337f197c3b0f047cecaae7d5bad1095ceb9c70070ca7793941efe4b"),
-    (["a", "b"], "e3b534d49837a4f8a2f95d5b71829e55a1708289654abbbf79c6441867555616")
+    (["a", "b", "c", "d", "e", "f", "g", "h"], "2dfe93948ecb1a0903dbf034de56d6529e62679519a37ed3b5b3356ab27b7bb8"),
+    (["a", "b", "c", "d"], "115cbb4775ed495f3d954dfa47164359a97762b40059d9502895def16eed609c"),
+    (["a", "b"], "414e3a845393ef6d68973ddbf5bd85ff524443cf0e06a361624f3d51b879ec1c"),
+    (["a"], "3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb")
   ]
 )
 def test_simple_merkle_root(x: List[str], root: str):
   tree = MerkleTree(x)
-  assert tree.root == root
+  assert tree.root == [root]

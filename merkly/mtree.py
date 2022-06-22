@@ -25,4 +25,4 @@ class MerkleTree(object):
     """
     # Get a root of merkle tree
     """
-    return merkle_root(self.leafs)[0]
+    return merkle_root(self.leafs)

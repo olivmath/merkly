@@ -44,11 +44,11 @@ def test_slicer(full: List[int], half: int):
 @mark.parametrize(
   "leafs, root",
   [
-    (["a", "b", "c", "d", "e", "f", "g", "h", "1","2","3","4","5","6","7","8"], "3818695492749d7eefc6a22cde83b4276263e0597ec86f74bf6d8fc7423f721a"),
-    (["a", "b", "c", "d", "e", "f", "g", "h"], "5cf1a5ef31f067f883c20e9dd709b430ae273db5d65f61c1f175bbe7076d3206"),
-    (["a", "b", "c", "d"], "159b0d5005a27c97537ff0e6d1d0d619be408a5e3f2570816b02dc5a18b74f47"),
-    (["a", "b"], "63a9f18b64ca5a98ad9dba59259edb0710892614501480a9bed568d98450c151"),
-    (["a"], "3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb")
+    (["a", "b", "c", "d", "e", "f", "g", "h", "1","2","3","4","5","6","7","8"], "5703e6b7e7fc0c8f894f72dcc340cf4a0c8eb4bce10ba3e2ccf18ae9662e9997"),
+    (["a", "b", "c", "d", "e", "f", "g", "h"], "5c48c83a8f7b41a9f73894006c97447b37bbdb535e59ebde364b57782f007925"),
+    (["a", "b", "c", "d"], "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd"),
+    (["a", "b"], "67fad3bfa1e0321bd021ca805ce14876e50acac8ca8532eda8cbf924da565160"),
+    (["a"], "a")
   ]
 )
 def test_create_root(leafs: List[str], root: str):

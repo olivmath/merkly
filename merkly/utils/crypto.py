@@ -69,7 +69,7 @@ def merkle_root(x: List[str]) -> str:
     raise Exception(f"PARÔ, {len(x)}")
 
   elif len(x) == 1:
-    return [keccak(x[0])]
+    return x
 
   else:
     return merkle_root([
