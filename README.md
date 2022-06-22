@@ -3,7 +3,7 @@
 The **simple and easy** implementation of **Python Merkle Tree**
 
 ---
-
+[![CodeQL](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml)
 [![Test](https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/olivmath/merkly/actions/workflows/test.yml)
 ![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/olivmath/merkly)
