@@ -17,7 +17,7 @@ The **simple and easy** implementation of **Python Merkle Tree**
 
 - [Credits](#credits)
 - [How to install](#how-to-install)
-- [How it works](#how-its-works)
+- [How it works](#how-it-works)
 - [How to use](#how-to-use)
 - [Contributing](#contributing)
 - [License](#license)
