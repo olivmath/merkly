@@ -3,12 +3,14 @@
 The **simple and easy** implementation of **Python Merkle Tree**
 
 ---
+
 [![CodeQL](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml)
+[![Lint](https://github.com/olivmath/merkly/actions/workflows/lint.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/lint.yml)
 [![Test](https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/olivmath/merkly/actions/workflows/test.yml)
+[![PyPI](https://img.shields.io/pypi/v/merkly)](https://pypi.org/project/merkly/)
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/olivmath/merkly)
-
-[![PyPI](https://img.shields.io/pypi/v/merkly)](https://pypi.org/project/merkly/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/merkly)](https://pypi.org/project/merkly/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)](https://pypi.org/project/merkly/)
 ![PyPI - License](https://img.shields.io/pypi/l/merkly)
@@ -79,7 +81,6 @@ assert mtree.root == [
 
 [MIT](LICENSE)
 
-
 Are you a builder or a consumer?
 
 This is my small contribution to the web3 + python community, a simple and easy to use implementation of Merkle Tree in python3.
@@ -87,7 +88,8 @@ I am preparing a sample of how a Merkle Tree can be useful in the process of air
 
 Leave a star!
 
-------
+---
+
 Vc é um construtor ou consumidor?
 
 Essa é minha pequena contribuição à comunidade web3 + python, uma implementação simples e fácil de usar da Merkle Tree em python3.
