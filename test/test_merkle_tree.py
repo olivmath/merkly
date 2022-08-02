@@ -66,3 +66,13 @@ def test_simple_merkle_root(leafs: List[str], root: str):
     """
     tree = MerkleTree(leafs)
     assert tree.root == [root]
+
+
+def test_merkle_proof():
+    """
+    Instantiated a simple Merkle Tree
+    """
+    leafs = ["a", "b", "c", "d"]
+    tree = MerkleTree(leafs)
+
+    assert tree.proof(leafs[0]) == []

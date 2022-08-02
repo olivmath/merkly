@@ -23,9 +23,7 @@ class MerkleTree():
         self.leafs: List[str] = self.__hash_leafs(leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        return list(
-            map(keccak, leafs)
-            )
+        return list(map(keccak, leafs))
 
     @property
     def root(self) -> str:
@@ -33,3 +31,9 @@ class MerkleTree():
         # Get a root of merkle tree
         """
         return merkle_root(self.leafs)
+
+    def proof(self, leaf: str) -> List[str]:
+        """
+        # Get a proof of merkle tree
+        """
+        return merkle_proof(self.leafs, keccak(leaf))
