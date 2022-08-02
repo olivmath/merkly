@@ -79,3 +79,19 @@ assert mtree.root == [
 ## License
 
 [MIT](LICENSE)
+
+
+Are you a builder or a consumer?
+
+This is my small contribution to the web3 + python community, a simple and easy to use implementation of Merkle Tree in python3.
+I am preparing a sample of how a Merkle Tree can be useful in the process of airdropping a token using a whitelist.
+
+Leave a star!
+
+------
+Vc é um construtor ou consumidor?
+
+Essa é minha pequena contribuição à comunidade web3 + python, uma implementação simples e fácil de usar da Merkle Tree em python3.
+Estou preparando uma amostra de como uma Merkle Tree pode ser útil no processo de airdrop de um token usando uma whitelist.
+
+Deixa uma estrelinha!

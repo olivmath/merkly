@@ -30,7 +30,7 @@ def keccak(data: str) -> str:
 
 def slicer(x: list):
   """
-  # Slice a `x: list[any]` in sublist of 2 items
+  # Slice a `x: list[any]` in pairs, pairs is sublist of 2 items
   - params `x: list[any]`
   - return `list: list[list[any]]
 
@@ -75,3 +75,17 @@ def merkle_root(x: List[str]) -> str:
     return merkle_root([
       keccak(i + j) for i,j in slicer(x)
     ])
+
+
+def merkle_proof(leafs: List[str], leaf: str) -> List[str]:
+  """
+  # gera a proof
+  se o index do `leaf` for menor que metado do tamanho da lista de `leafs`
+  então o lado direito deve chegar a root
+  """
+  index = leafs.index(leaf)
+  if index < len(leafs) / 2:
+    return 0
+  else:
+    return 1
+
