@@ -36,4 +36,4 @@ class MerkleTree():
         """
         # Get a proof of merkle tree
         """
-        return merkle_proof(self.leafs, keccak(leaf))
+        return merkle_proof(self.leafs, keccak(leaf), [])

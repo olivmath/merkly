@@ -3,8 +3,8 @@ Crypto functions
 """
 
 from merkly.utils.math import is_power_2
+from typing import List, Tuple
 from sha3 import keccak_256
-from typing import List
 
 def keccak(data: str) -> str:
     """
@@ -31,11 +31,31 @@ def keccak(data: str) -> str:
     ).hexdigest()
 
 
+def half(list_item: List[int]) -> Tuple[int, int]:
+    """
+    # Slice a `x: list[int]` in a pairs
+    - params `x: list[int]`
+    - return `list: list[list[int]]
+
+    ```python
+    >>> slicer([1,2,3,4])
+    [[1, 2], [3, 4]]
+
+    >>> slicer([i for i in range(10)])
+    [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]]
+    ```
+    """
+
+    length = len(list_item) // 2
+
+    return (list_item[:length], list_item[length:])
+
+
 def slicer(list_item: list):
     """
-    # Slice a `x: list[any]` in pairs, pairs is sublist of 2 items
-    - params `x: list[any]`
-    - return `list: list[list[any]]
+    # Slice a `x: list[int]` in pairs, pairs is sublist of 2 items
+    - params `x: list[int]`
+    - return `list: list[list[int]]
 
     ```python
     >>> slicer([1,2,3,4])
@@ -78,15 +98,27 @@ def merkle_root(leafs: List[str]) -> str:
     ])
 
 
-def merkle_proof(leafs: List[str], leaf: str) -> List[str]:
+def merkle_proof(leafs: List[str], leaf: str, proof: List[str]) -> List[str]:
     """
-    # gera a proof
+    # Gera a proof
     se o index do `leaf` for menor que metado do tamanho da lista de `leafs`
     então o lado direito deve chegar a root e vice versa
     """
     index = leafs.index(leaf)
+    left, right = half(leafs)
+
+    print(f"---\nproof {proof}")
+    print(f"leaf {leaf[:4]}")
+    print(f"{left}\n{right}\n---")
+
+    if len(leafs) == 1:
+        proof.append(leafs)
+        proof.reverse()
+        return proof
 
     if index < len(leafs) / 2:
-        return 0
+        proof.append(merkle_root(right))
+        return merkle_proof(left, leaf, proof)
 
-    return 1
+    proof.append(leaf)
+    return merkle_proof(right, leaf, proof)
