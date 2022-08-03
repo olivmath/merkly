@@ -107,17 +107,17 @@ def merkle_proof(leafs: List[str], leaf: str, proof: List[str]) -> List[str]:
     index = leafs.index(leaf)
     left, right = half(leafs)
 
-    print(f"---\nproof {proof}")
-    print(f"leaf {leaf[:4]}")
-    print(f"{left}\n{right}\n---")
+    # print(f"---\nproof {proof}")
+    # print(f"leaf {leaf[:4]}")
+    # print(f"{left}\n{right}\n---")
 
     if len(leafs) == 1:
-        proof.append(leafs)
+        proof.append(leaf)
         proof.reverse()
         return proof
 
     if index < len(leafs) / 2:
-        proof.append(merkle_root(right))
+        proof.append(merkle_root(right)[0])
         return merkle_proof(left, leaf, proof)
 
     proof.append(leaf)

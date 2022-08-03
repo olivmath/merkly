@@ -4,6 +4,7 @@
 
 from merkly.utils.crypto import merkle_root, merkle_proof, keccak
 from merkly.utils.math import is_power_2
+from functools import reduce
 from typing import List
 
 class MerkleTree():
@@ -30,10 +31,16 @@ class MerkleTree():
         """
         # Get a root of merkle tree
         """
-        return merkle_root(self.leafs)
+        return merkle_root(self.leafs)[0]
 
     def proof(self, leaf: str) -> List[str]:
         """
         # Get a proof of merkle tree
         """
         return merkle_proof(self.leafs, keccak(leaf), [])
+
+    def verify(self, proof: List[str]) -> bool:
+        """
+        # Verify the Merkle Proof
+        """
+        return self.root == reduce(lambda x, y: keccak(x + y), proof)

@@ -45,7 +45,7 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 - [x] Create Leaf
 - [x] Create Root
 - [x] Create Proof
-- [ ] Validate Leafs
+- [ ] Verify Proof
 
 ![Merkle Tree](assets/merkle-tree.png)
 
@@ -80,3 +80,5 @@ assert mtree.root == [
 ## License
 
 [MIT](LICENSE)
+
+<!-- https://math.mit.edu/research/highschool/primes/materials/2018/Kuszmaul.pdf -->

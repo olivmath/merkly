@@ -65,10 +65,10 @@ def test_simple_merkle_root(leafs: List[str], root: str):
     Generate a Root of a simple Merkle Tree
     """
     tree = MerkleTree(leafs)
-    assert tree.root == [root]
+    assert tree.root == root
 
 
-def test_merkle_proof():
+def test_simple_merkle_proof():
     """
     Instantiated a simple Merkle Tree
     """
@@ -76,7 +76,21 @@ def test_merkle_proof():
     tree = MerkleTree(leafs)
 
     assert tree.proof(leafs[0]) == [
-        ['3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb'],
-        ['b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510'],
-        ['64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20']
+        '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb',
+        'b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510',
+        '64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20'
+    ]
+
+def test_double_merkle_proof():
+    """
+    Instantiated a simple Merkle Tree
+    """
+    leafs = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    tree = MerkleTree(leafs)
+
+    assert tree.proof(leafs[0]) == [
+        '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb',
+        'b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510',
+        '64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20',
+        '7b208c253e625d958da7ce6e704203f2bb7ba73d3bb69f17023628afd53a6d5f'
     ]
