@@ -50,7 +50,8 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 - Create Proof
 - Verify Proof
 
-![Merkle Tree](assets/merkle-tree.png)
+<img width="2216" alt="merkle-tree" src="https://user-images.githubusercontent.com/50037567/193623013-3c2888d1-441f-45a1-97fe-6e275edde847.png">
+
 
 ## How to Use
 
