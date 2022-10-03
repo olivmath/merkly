@@ -85,4 +85,21 @@ class MerkleTree():
         """
         # Verify the Merkle Proof
         """
-        return self.root == reduce(lambda x, y: keccak(x + y), proof)
+        from merkly.utils.crypto import keccak
+        from functools import reduce
+
+        def _f(_x: Node, _y: Node) -> Node:
+            """
+            # f(x,y) -> Node
+            """
+            if _x.left is not None and _y.left is not None:
+                return Node(left=keccak(_y.left + _x.left))
+            if _x.right is not None and _y.right is not None:
+                return Node(right=keccak(_x.right + _y.right))
+
+            if _x.right is not None:
+                return Node(right=keccak(_y.left + _x.right))
+            if _x.left is not None:
+                return Node(left=keccak(_x.left + _y.right))
+
+        return reduce(_f, proof).left == self.root
