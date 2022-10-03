@@ -1,7 +1,9 @@
 [MASTER]
 disable=
     C0411, # wrong import order
-    C0114  # missing module docstring
+    C0114, # missing module docstring
+    C0415, # import outside toplevel
+    E0611  # no-name-in-module
 
 [MAIN]
 
