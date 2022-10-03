@@ -21,6 +21,7 @@ The **simple and easy** implementation of **Python Merkle Tree**
 - [How to install](#how-to-install)
 - [How to works](#how-to-works)
 - [How to use](#how-to-use)
+- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -40,12 +41,14 @@ pip install merkly
 
 ## How to works
 
+- *We use keccak-256 under-the-hood*
+
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
-- [x] Create Leaf
-- [x] Create Root
-- [x] Create Proof
-- [x] Verify Proof
+- Create Leaf
+- Create Root
+- Create Proof
+- Verify Proof
 
 ![Merkle Tree](assets/merkle-tree.png)
 
@@ -104,6 +107,18 @@ p = mtree.proof("b")
 assert mtree.verify(p) == True
 ```
 
+
+## Roadmap
+
+| Feature | Status | Priority |
+|-|-|-|
+| Create Root | ✅ | 🔥 |
+| Create Proof | ✅ | 🔥 |
+| Verify Proof | ✅ | 🔥 |
+| Support **[OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/utilities#verifying_merkle_proofs)** | ⏰ | 🔥 |
+| Compatible with **[MerkleTreeJs](https://github.com/miguelmota/merkletreejs)** | ⏰ | 🔥 |
+| Use any Hash function | ⏰ | 🧐 |
+| Leafs of any size | ⏰ | 🧐 |
 
 ## Contributing
 
