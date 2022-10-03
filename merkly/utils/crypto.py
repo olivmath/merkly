@@ -3,8 +3,10 @@ Crypto functions
 """
 
 from merkly.utils.math import is_power_2
+from merkly.mtree import Node
 from typing import List, Tuple
 from sha3 import keccak_256
+
 
 def keccak(data: str) -> str:
     """
@@ -51,7 +53,7 @@ def half(list_item: List[int]) -> Tuple[int, int]:
     return (list_item[:length], list_item[length:])
 
 
-def slicer(list_item: list):
+def slice_in_pairs(list_item: list):
     """
     # Slice a `x: list[int]` in pairs, pairs is sublist of 2 items
     - params `x: list[int]`
@@ -94,31 +96,40 @@ def merkle_root(leafs: List[str]) -> str:
         return leafs
 
     return merkle_root([
-        keccak(i + j) for i,j in slicer(leafs)
+        keccak(i + j) for i, j in slice_in_pairs(leafs)
     ])
 
 
-def merkle_proof(leafs: List[str], leaf: str, proof: List[str]) -> List[str]:
+def merkle_proof(
+    leafs: List[str],
+    proof: List[str],
+    leaf: str
+) -> List[Node]:
     """
-    # Gera a proof
-    se o index do `leaf` for menor que metado do tamanho da lista de `leafs`
-    então o lado direito deve chegar a root e vice versa
+    # Make a proof
+    - if the `leaf` index is less than half the size of the `leafs`
+    list then the right side must reach root and vice versa
     """
+
+    if len(leafs) == 2:
+        proof.append(
+            Node(right=leafs[1])
+        )
+        proof.append(
+            Node(left=leafs[0])
+        )
+        return proof
+
     index = leafs.index(leaf)
     left, right = half(leafs)
 
-    # print(f"---\nproof {proof}")
-    # print(f"leaf {leaf[:4]}")
-    # print(f"{left}\n{right}\n---")
-
-    if len(leafs) == 1:
-        proof.append(leaf)
-        proof.reverse()
-        return proof
-
     if index < len(leafs) / 2:
-        proof.append(merkle_root(right)[0])
-        return merkle_proof(left, leaf, proof)
-
-    proof.append(leaf)
-    return merkle_proof(right, leaf, proof)
+        proof.append(
+            Node(right=merkle_root(right)[0])
+        )
+        return merkle_proof(left, proof, leaf)
+    else:
+        proof.append(
+            Node(left=merkle_root(left)[0])
+        )
+        return merkle_proof(right, proof, leaf)
