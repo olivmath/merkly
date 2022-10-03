@@ -3,12 +3,14 @@
 The **simple and easy** implementation of **Python Merkle Tree**
 
 ---
+
 [![CodeQL](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml)
+[![Lint](https://github.com/olivmath/merkly/actions/workflows/lint.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/lint.yml)
 [![Test](https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/olivmath/merkly/actions/workflows/test.yml)
+[![PyPI](https://img.shields.io/pypi/v/merkly)](https://pypi.org/project/merkly/)
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/olivmath/merkly)
-
-[![PyPI](https://img.shields.io/pypi/v/merkly)](https://pypi.org/project/merkly/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/merkly)](https://pypi.org/project/merkly/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)](https://pypi.org/project/merkly/)
 ![PyPI - License](https://img.shields.io/pypi/l/merkly)
@@ -19,6 +21,7 @@ The **simple and easy** implementation of **Python Merkle Tree**
 - [How to install](#how-to-install)
 - [How it works](#how-it-works)
 - [How to use](#how-to-use)
+- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -36,40 +39,86 @@ poetry add merkly
 pip install merkly
 ```
 
-## How it works
+## How to works
+
+- *We use keccak-256 under-the-hood*
 
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
-- [x] Create Leaf
-- [x] Create Root
-- [ ] Create Proof
-- [ ] Validate Leafs
+- Create Leaf
+- Create Root
+- Create Proof
+- Verify Proof
 
-<!-- ![Merkle Tree](assets/merkle-tree.png) -->
-<img width="1664" alt="merkle-tree" src="https://user-images.githubusercontent.com/50037567/174931499-813e680e-c7e0-4055-8159-93497b4a4ee2.png">
+![Merkle Tree](assets/merkle-tree.png)
 
 ## How to Use
 
-Create a Merkle Tree
+**Create a Merkle Tree**
 
 ```python
 from merkly.mtree import MerkleTree
 
-mtree = MerkleTree(
-  ['a', 'b', 'c', 'd']
-)
+# create a Merkle Tree
+mtree = MerkleTree(['a', 'b', 'c', 'd']
 
-assert mtree.leafs == [
-  '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb',
-  'b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510',
-  '0b42b6393c1f53060fe3ddbfcd7aadcca894465a5a438f69c87d790b2299b9b2',
-  'f1918e8562236eb17adc8502332f4c9c82bc14e19bfc0aa10ab674ff75b3d2f3'
-]
+# show original input
+assert mtree.raw_leafs == ['a', 'b', 'c', 'd']
 
-assert mtree.root == [
-  '115cbb4775ed495f3d954dfa47164359a97762b40059d9502895def16eed609c'
-]
+# show leafs 
+assert mtree.leafs == []
 ```
+
+
+**Create a Root**
+
+```python
+from merkly.mtree import MerkleTree
+
+# create a Merkle Tree
+mtree = MerkleTree(['a', 'b', 'c', 'd'])
+
+# get root of tree
+assert mtree.root == ""
+```
+
+**Create Proof of a leaf**
+```python
+from merkly.mtree import MerkleTree
+
+# create a Merkle Tree
+mtree = MerkleTree(['a', 'b', 'c', 'd'])
+
+# get proof of a leaf
+assert mtree.proof("b") == []
+```
+
+**Verify Proof of a leaf**
+```python
+from merkly.mtree import MerkleTree
+
+# create a Merkle Tree
+mtree = MerkleTree(['a', 'b', 'c', 'd'])
+
+# get proof of a leaf
+p = mtree.proof("b")
+
+# verify your proof
+assert mtree.verify(p) == True
+```
+
+
+## Roadmap
+
+| Feature | Status | Priority |
+|-|-|-|
+| Create Root | ✅ | 🔥 |
+| Create Proof | ✅ | 🔥 |
+| Verify Proof | ✅ | 🔥 |
+| Support **[OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/utilities#verifying_merkle_proofs)** | ⏰ | 🔥 |
+| Compatible with **[MerkleTreeJs](https://github.com/miguelmota/merkletreejs)** | ⏰ | 🔥 |
+| Use any Hash function | ⏰ | 🧐 |
+| Leafs of any size | ⏰ | 🧐 |
 
 ## Contributing
 
@@ -79,3 +128,5 @@ assert mtree.root == [
 ## License
 
 [MIT](LICENSE)
+
+<!-- https://math.mit.edu/research/highschool/primes/materials/2018/Kuszmaul.pdf -->
