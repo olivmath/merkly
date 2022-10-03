@@ -1,11 +1,22 @@
 """
 # Merkle Tree model
 """
+from typing import List, Optional
+from pydantic import BaseModel
 
-from merkly.utils.crypto import merkle_root, merkle_proof, keccak
-from merkly.utils.math import is_power_2
-from functools import reduce
-from typing import List
+
+class Node(BaseModel):
+    """
+    # 🍃 Leaf of Tree
+    """
+    left: Optional[str]
+    right: Optional[str]
+
+    def __repr__(self) -> str:
+        if self.left is None:
+            return f"{self.right[:3]}"
+        elif self.right is None:
+            return f"{self.left[:3]}"
 
 class MerkleTree():
     """
