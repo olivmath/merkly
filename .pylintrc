@@ -1,6 +1,7 @@
 [MASTER]
 disable=
-    C0411, # wrong-import-order
+    C0411, # wrong import order
+    C0114  # missing module docstring
 
 [MAIN]
 
