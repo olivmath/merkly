@@ -3,7 +3,10 @@ disable=
     C0411, # wrong import order
     C0114, # missing module docstring
     C0415, # import outside toplevel
-    E0611  # no-name-in-module
+    E0611, # no-name-in-module
+    R1705, # no else return
+    R0903, # too few public methods
+    R1710  # inconsistent return statements
 
 [MAIN]
 
