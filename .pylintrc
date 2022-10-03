@@ -6,7 +6,8 @@ disable=
     E0611, # no-name-in-module
     R1705, # no else return
     R0903, # too few public methods
-    R1710  # inconsistent return statements
+    R1710, # inconsistent return statements
+    W0511  # fix todos
 
 [MAIN]
 
