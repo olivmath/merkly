@@ -27,28 +27,59 @@ class MerkleTree():
     def __init__(self, leafs: List[str]) -> None:
         """
         # Constructor
-        - Needs a `list` of `str`
+        - Needs a `list` of `str` with length power of 2
         """
-        if not is_power_2(leafs.__len__()):
-            raise Exception("size of leafs should be power of 2")
+        from merkly.utils.math import is_power_2
 
+        if not is_power_2(leafs.__len__()):
+            raise Exception(
+                "size of leafs should be power of 2\n" +
+                "like: 2, 4, 8, 16, 32, 64, 128..."
+            )
+        # todo: to lazy initialize
+        # todo: cache leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
+        self.raw_leafs = leafs
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
+        """
+        # hash leafs
+        - hash each leaf
+        """
+        from merkly.utils.crypto import keccak
+
         return list(map(keccak, leafs))
+
+    def __repr__(self) -> str:
+        """
+        # repr
+        """
+        return f"MerkleTree\n{self.raw_leafs}\n{self.short(self.leafs)}"
+
+    def short(self, data: List[str]) -> List[str]:
+        """
+        # short any list of hash
+        """
+        return [x[:3] for x in data]
 
     @property
     def root(self) -> str:
         """
         # Get a root of merkle tree
         """
+        from merkly.utils.crypto import merkle_root
+
         return merkle_root(self.leafs)[0]
 
-    def proof(self, leaf: str) -> List[str]:
+    def proof(self, leaf: str) -> List[Node]:
         """
         # Get a proof of merkle tree
         """
-        return merkle_proof(self.leafs, keccak(leaf), [])
+        from merkly.utils.crypto import merkle_proof, keccak
+
+        proof = merkle_proof(self.leafs, [], keccak(leaf))
+        proof.reverse()
+        return proof
 
     def verify(self, proof: List[str]) -> bool:
         """
