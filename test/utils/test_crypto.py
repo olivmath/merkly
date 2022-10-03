@@ -1,4 +1,4 @@
-from merkly.utils.crypto import keccak, slicer, merkle_root, merkle_proof
+from merkly.utils.crypto import keccak, slice_in_pairs, merkle_root
 from pytest import mark
 from typing import List
 
@@ -38,8 +38,8 @@ def test_of_keccak(data: str, expect: bool):
         ([i for i in range(10010)], 5005)
     ]
 )
-def test_slicer(full: List[int], half: int):
-    assert half == len(slicer(full))
+def test_slice_in_pairs(full: List[int], half: int):
+    assert half == len(slice_in_pairs(full))
 
 
 @mark.parametrize(
@@ -57,17 +57,3 @@ def test_slicer(full: List[int], half: int):
 )
 def test_create_root(leafs: List[str], root: str):
     assert merkle_root(leafs) == [root]
-
-
-@mark.parametrize(
-    "leafs, leaf, proof",
-    [
-        (
-            ["a", "b", "c", "d"],
-            "a",
-            [""]
-        )
-    ]
-)
-def test_merkle_proof(leafs: List[str], leaf: str, proof: List[str]):
-    assert proof == proof # merkle_proof(leafs, keccak(leaf), [])
