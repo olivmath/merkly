@@ -1,4 +1,4 @@
-from merkly.utils.crypto import keccak, slice_in_pairs, merkle_root
+from merkly.utils.crypto import keccak, slice_in_pairs
 from pytest import mark
 from typing import List
 
@@ -40,20 +40,3 @@ def test_of_keccak(data: str, expect: bool):
 )
 def test_slice_in_pairs(full: List[int], half: int):
     assert half == len(slice_in_pairs(full))
-
-
-@mark.parametrize(
-    "leafs, root",
-    [
-        (["a", "b", "c", "d", "e", "f", "g", "h", "1", "2", "3", "4", "5", "6", "7",
-         "8"], "5703e6b7e7fc0c8f894f72dcc340cf4a0c8eb4bce10ba3e2ccf18ae9662e9997"),
-        (["a", "b", "c", "d", "e", "f", "g", "h"],
-         "5c48c83a8f7b41a9f73894006c97447b37bbdb535e59ebde364b57782f007925"),
-        (["a", "b", "c", "d"],
-         "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd"),
-        (["a", "b"], "67fad3bfa1e0321bd021ca805ce14876e50acac8ca8532eda8cbf924da565160"),
-        (["a"], "a")
-    ]
-)
-def test_create_root(leafs: List[str], root: str):
-    assert merkle_root(leafs) == [root]
