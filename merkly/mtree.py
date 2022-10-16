@@ -118,7 +118,7 @@ class MerkleTree():
         ["159b0d5005a27c97537ff0e6d1d0d619be408a5e3f2570816b02dc5a18b74f47"]
 
         >>> merkle_root(["a", "b"])
-        ["63a9f18b64ca5a98ad9dba59259edb0710892614501480a9bed568d98450c151"]
+        ["414e3a845393ef6d68973ddbf5bd85ff524443cf0e06a361624f3d51b879ec1c"]
         ```
         """
         from merkly.utils.math import is_power_2
@@ -156,7 +156,13 @@ class MerkleTree():
             )
             return proof
 
-        index = leafs.index(leaf)
+        try:
+            index = leafs.index(leaf)
+        except ValueError as err:
+            raise ValueError(
+                f'leaf: {leaf} does not exist in the tree: {leafs}'
+            ) from err
+
         left, right = half(leafs)
 
         if index < len(leafs) / 2:
