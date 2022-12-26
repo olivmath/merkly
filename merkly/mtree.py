@@ -34,6 +34,7 @@ class MerkleTree():
         from merkly.utils.math import is_power_2
 
         if not is_power_2(leafs.__len__()):
+            # todo: custom error
             raise Exception(
                 "size of leafs should be power of 2\n" +
                 "like: 2, 4, 8, 16, 32, 64, 128..."
@@ -60,7 +61,9 @@ class MerkleTree():
 
     def short(self, data: List[str]) -> List[str]:
         """
-        # short any list of hash
+        # short representataion any list of hash
+        - from: 3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb
+        - to: 3ac
         """
         return [x[:3] for x in data]
 
