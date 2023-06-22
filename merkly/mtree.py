@@ -25,15 +25,11 @@ class Node(BaseModel):
 class MerkleTree:
     """
     # 🌳 Merkle Tree
-    - You can passa raw data
+    - You can pass a list of raw data
     - They will hashed by `keccak-256`
     """
 
     def __init__(self, leafs: List[str]) -> None:
-        """
-        # Constructor
-        - Needs a `list` of `str` with length power of 2
-        """
         from merkly.utils.math import is_power_2
 
         if not is_power_2(leafs.__len__()):
@@ -42,24 +38,15 @@ class MerkleTree:
                 "size of leafs should be power of 2\n"
                 + "like: 2, 4, 8, 16, 32, 64, 128..."
             )
-        # todo: to lazy initialize
-        # todo: cache leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
         self.raw_leafs = leafs
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        """
-        # hash leafs
-        - hash each leaf
-        """
         from merkly.utils.crypto import keccak
 
         return list(map(keccak, leafs))
 
     def __repr__(self) -> str:
-        """
-        # repr
-        """
         return f"""MerkleTree(
             leafs_raw: {self.raw_leafs}
             leafs_hashed: {self.short(self.leafs)}
@@ -67,25 +54,13 @@ class MerkleTree:
         )"""
 
     def short(self, data: List[str]) -> List[str]:
-        """
-        # short representataion any list of hash
-        - from: '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb'
-        - to: '3ac2...'
-        """
         return [f'{x[:4]}...' for x in data]
 
     @property
     def root(self) -> str:
-        """
-        # Get a root of merkle tree
-        """
-
         return MerkleTree.merkle_root(self.leafs)[0]
 
     def proof(self, leaf: str) -> List[Node]:
-        """
-        # Get a proof of merkle tree
-        """
         from merkly.utils.crypto import keccak
 
         proof = MerkleTree.merkle_proof(self.leafs, [], keccak(leaf))
@@ -93,9 +68,6 @@ class MerkleTree:
         return proof
 
     def verify(self, proof: List[str]) -> bool:
-        """
-        # Verify the Merkle Proof
-        """
         from merkly.utils.crypto import keccak
         from functools import reduce
 
@@ -119,7 +91,7 @@ class MerkleTree:
     def merkle_root(leafs: list):
         """
         # Merkle Root of `x: list[str]` using keccak256
-        - params `x: lsit[str]`
+        - params `x: list[str]`
         - return `hexadecimal: list[str]`
 
         ```python
