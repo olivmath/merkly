@@ -33,12 +33,7 @@ class MerkleTree:
     """
 
     def __init__(self, leafs: List[str]) -> None:
-        if not is_power_2(leafs.__len__()):
-            # todo: custom error
-            raise Exception(
-                "size of leafs should be power of 2\n"
-                + "like: 2, 4, 8, 16, 32, 64, 128..."
-            )
+        is_power_2(leafs.__len__())
         self.leafs: List[str] = self.__hash_leafs(leafs)
         self.raw_leafs = leafs
 
@@ -96,9 +91,6 @@ class MerkleTree:
         ["414e3a845393ef6d68973ddbf5bd85ff524443cf0e06a361624f3d51b879ec1c"]
         ```
         """
-        if not is_power_2(len(leafs)):
-            raise Exception(f"PARÔ, {len(leafs)}")
-
         if len(leafs) == 1:
             return leafs
 
