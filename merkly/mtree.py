@@ -112,9 +112,8 @@ class MerkleTree:
         try:
             index = leafs.index(leaf)
         except ValueError as err:
-            raise ValueError(
-                f"leaf: {leaf} does not exist in the tree: {leafs}"
-            ) from err
+            msg = f"leaf: {leaf} does not exist in the tree: {leafs}"
+            raise ValueError(msg) from err
 
         left, right = half(leafs)
 
