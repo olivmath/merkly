@@ -15,9 +15,9 @@ class Node(BaseModel):
 
     def __repr__(self) -> str:
         if self.left is None:
-            return f"{self.right[:3]}"
+            return f"Node(right: {self.right[:4]}...)"
         elif self.right is None:
-            return f"{self.left[:3]}"
+            return f"Node(left: {self.left[:4]}...)"
         else:
             return ""
 
@@ -60,15 +60,19 @@ class MerkleTree:
         """
         # repr
         """
-        return f"MerkleTree\n{self.raw_leafs}\n{self.short(self.leafs)}"
+        return f"""MerkleTree(
+            leafs_raw: {self.raw_leafs}
+            leafs_hashed: {self.short(self.leafs)}
+            leafs_hashed_shorted: {self.short(self.leafs)}
+        )"""
 
     def short(self, data: List[str]) -> List[str]:
         """
         # short representataion any list of hash
-        - from: 3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb
-        - to: 3ac
+        - from: '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb'
+        - to: '3ac2...'
         """
-        return [x[:3] for x in data]
+        return [f'{x[:4]}...' for x in data]
 
     @property
     def root(self) -> str:
