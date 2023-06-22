@@ -2,6 +2,7 @@
 Math utils functions
 """
 
+
 def is_power_2(number: int) -> bool:
     """
     # Verify if `x: int` is power of 2
@@ -16,6 +17,6 @@ def is_power_2(number: int) -> bool:
     ```
     """
 
-    left: bool = (number & (number - 1) == 0)
+    left: bool = number & (number - 1) == 0
     right: bool = number != 0
     return left and right

@@ -9,6 +9,7 @@ class Node(BaseModel):
     """
     # 🍃 Leaf of Tree
     """
+
     left: Optional[str]
     right: Optional[str]
 
@@ -20,12 +21,14 @@ class Node(BaseModel):
         else:
             return ""
 
-class MerkleTree():
+
+class MerkleTree:
     """
     # 🌳 Merkle Tree
     - You can passa raw data
     - They will hashed by `keccak-256`
     """
+
     def __init__(self, leafs: List[str]) -> None:
         """
         # Constructor
@@ -36,8 +39,8 @@ class MerkleTree():
         if not is_power_2(leafs.__len__()):
             # todo: custom error
             raise Exception(
-                "size of leafs should be power of 2\n" +
-                "like: 2, 4, 8, 16, 32, 64, 128..."
+                "size of leafs should be power of 2\n"
+                + "like: 2, 4, 8, 16, 32, 64, 128..."
             )
         # todo: to lazy initialize
         # todo: cache leafs
@@ -74,7 +77,6 @@ class MerkleTree():
         """
 
         return MerkleTree.merkle_root(self.leafs)[0]
-
 
     def proof(self, leaf: str) -> List[Node]:
         """
@@ -133,16 +135,10 @@ class MerkleTree():
         if len(leafs) == 1:
             return leafs
 
-        return MerkleTree.merkle_root([
-            keccak(i + j) for i, j in slice_in_pairs(leafs)
-        ])
+        return MerkleTree.merkle_root([keccak(i + j) for i, j in slice_in_pairs(leafs)])
 
     @staticmethod
-    def merkle_proof(
-        leafs: List[str],
-        proof: List[str],
-        leaf: str
-    ) -> list:
+    def merkle_proof(leafs: List[str], proof: List[str], leaf: str) -> list:
         """
         # Make a proof
         - if the `leaf` index is less than half the size of the `leafs`
@@ -151,30 +147,22 @@ class MerkleTree():
         from merkly.utils.crypto import half
 
         if len(leafs) == 2:
-            proof.append(
-                Node(right=leafs[1])
-            )
-            proof.append(
-                Node(left=leafs[0])
-            )
+            proof.append(Node(right=leafs[1]))
+            proof.append(Node(left=leafs[0]))
             return proof
 
         try:
             index = leafs.index(leaf)
         except ValueError as err:
             raise ValueError(
-                f'leaf: {leaf} does not exist in the tree: {leafs}'
+                f"leaf: {leaf} does not exist in the tree: {leafs}"
             ) from err
 
         left, right = half(leafs)
 
         if index < len(leafs) / 2:
-            proof.append(
-                Node(right=MerkleTree.merkle_root(right)[0])
-            )
+            proof.append(Node(right=MerkleTree.merkle_root(right)[0]))
             return MerkleTree.merkle_proof(left, proof, leaf)
         else:
-            proof.append(
-                Node(left=MerkleTree.merkle_root(left)[0])
-            )
+            proof.append(Node(left=MerkleTree.merkle_root(left)[0]))
             return MerkleTree.merkle_proof(right, proof, leaf)

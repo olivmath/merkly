@@ -6,7 +6,7 @@ def w_t():
     """
     # running `poetry run w-t` for watch tests
     """
-    subprocess.run(["ptw", "test","-vvx"])
+    subprocess.run(["ptw", "test", "-vvx"])
 
 
 def lint():

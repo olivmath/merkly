@@ -26,9 +26,7 @@ def keccak(data: str) -> str:
     "541111248b45b7a8dc3f5579f630e74cb01456ea6ac067d3f4d793245a255155"
     ```
     """
-    return keccak_256(
-        data.encode()
-    ).hexdigest()
+    return keccak_256(data.encode()).hexdigest()
 
 
 def half(list_item: List[int]) -> Tuple[int, int]:
@@ -66,7 +64,4 @@ def slice_in_pairs(list_item: list):
     ```
     """
 
-    return [
-        list_item[i: i + 2]
-        for i in range(0, len(list_item), 2)
-    ]
+    return [list_item[i : i + 2] for i in range(0, len(list_item), 2)]
