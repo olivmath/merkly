@@ -1,8 +1,11 @@
 """
 # Merkle Tree model
 """
+from merkly.utils.crypto import keccak, half, two_leafs_into_node, slice_in_pairs
+from merkly.utils.math import is_power_2
 from typing import List, Optional
 from pydantic import BaseModel
+from functools import reduce
 
 
 class Node(BaseModel):
@@ -30,8 +33,6 @@ class MerkleTree:
     """
 
     def __init__(self, leafs: List[str]) -> None:
-        from merkly.utils.math import is_power_2
-
         if not is_power_2(leafs.__len__()):
             # todo: custom error
             raise Exception(
@@ -42,8 +43,6 @@ class MerkleTree:
         self.raw_leafs = leafs
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        from merkly.utils.crypto import keccak
-
         return list(map(keccak, leafs))
 
     def __repr__(self) -> str:
@@ -61,16 +60,11 @@ class MerkleTree:
         return MerkleTree.merkle_root(self.leafs)[0]
 
     def proof(self, leaf: str) -> List[Node]:
-        from merkly.utils.crypto import keccak
-
         proof = MerkleTree.merkle_proof(self.leafs, [], keccak(leaf))
         proof.reverse()
         return proof
 
     def verify(self, proof: List[str]) -> bool:
-        from merkly.utils.crypto import keccak
-        from functools import reduce
-
         def _f(_x: Node, _y: Node) -> Node:
             """
             # f(x,y) -> Node
@@ -102,9 +96,6 @@ class MerkleTree:
         ["414e3a845393ef6d68973ddbf5bd85ff524443cf0e06a361624f3d51b879ec1c"]
         ```
         """
-        from merkly.utils.math import is_power_2
-        from merkly.utils.crypto import keccak, slice_in_pairs
-
         if not is_power_2(len(leafs)):
             raise Exception(f"PARÔ, {len(leafs)}")
 
@@ -120,7 +111,6 @@ class MerkleTree:
         - if the `leaf` index is less than half the size of the `leafs`
         list then the right side must reach root and vice versa
         """
-        from merkly.utils.crypto import half
 
         if len(leafs) == 2:
             proof.append(Node(right=leafs[1]))
