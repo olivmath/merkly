@@ -1,19 +1,35 @@
-# 🌳 Merkly
+<p align="center">
+  <a href="https://pypi.org/project/merkly/">
+    <img alt="Fusion" src="./assets/merkle-tree.png" width="1000">
+  </a>
+</p>
 
-The **simple and easy** implementation of **Python Merkle Tree**
+<p align="center">The simple and easy implementation of Python Merkle Tree.</p>
 
 ---
 
-[![CodeQL](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/codeql-analysis.yml)
-[![Lint](https://github.com/olivmath/merkly/actions/workflows/lint.yml/badge.svg)](https://github.com/olivmath/merkly/actions/workflows/lint.yml)
-[![Test](https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/olivmath/merkly/actions/workflows/test.yml)
-[![PyPI](https://img.shields.io/pypi/v/merkly)](https://pypi.org/project/merkly/)
+<p align="center">
+    <a href="https://pypi.org/project/merkly/">
+        <img src="https://img.shields.io/pypi/v/merkly">
+    </a>
+    <a href="https://github.com/olivmath/merkly/actions/workflows/test.yml">
+        <img src="https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main">
+    </a>
+    <a href="https://pypi.org/project/merkly/">
+        <img src="https://img.shields.io/pypi/pyversions/merkly">
+    </a>
+    <a href="https://pypi.org/project/merkly/">
+        <img src="https://img.shields.io/pypi/dm/merkly">
+    </a>
+    <a href="https://github.com/olivmath/merkly/graphs/code-frequency">
+    <img src="https://img.shields.io/github/commit-activity/m/olivmath/merkly">
+    </a>
+    <a href="https://github.com/olivmath/merkly/blob/main/LICENSE">
+        <img src="https://img.shields.io/pypi/l/merkly">
+    </a>
+</p>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/olivmath/merkly)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/olivmath/merkly)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/merkly)](https://pypi.org/project/merkly/)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/merkly)](https://pypi.org/project/merkly/)
-![PyPI - License](https://img.shields.io/pypi/l/merkly)
+---
 
 ## Table of Contents
 
@@ -41,7 +57,7 @@ pip install merkly
 
 ## How to works
 
-- *We use keccak-256 under-the-hood*
+- _We use keccak-256 under-the-hood_
 
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
@@ -49,9 +65,6 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 - Create Root
 - Create Proof
 - Verify Proof
-
-<img width="2216" alt="merkle-tree" src="https://user-images.githubusercontent.com/50037567/193623013-3c2888d1-441f-45a1-97fe-6e275edde847.png">
-
 
 ## How to Use
 
@@ -66,10 +79,9 @@ mtree = MerkleTree(['a', 'b', 'c', 'd']
 # show original input
 assert mtree.raw_leafs == ['a', 'b', 'c', 'd']
 
-# show leafs 
+# show leafs
 assert mtree.leafs == []
 ```
-
 
 **Create a Root**
 
@@ -84,6 +96,7 @@ assert mtree.root == ""
 ```
 
 **Create Proof of a leaf**
+
 ```python
 from merkly.mtree import MerkleTree
 
@@ -95,6 +108,7 @@ assert mtree.proof("b") == []
 ```
 
 **Verify Proof of a leaf**
+
 ```python
 from merkly.mtree import MerkleTree
 
@@ -108,18 +122,17 @@ p = mtree.proof("b")
 assert mtree.verify(p) == True
 ```
 
-
 ## Roadmap
 
-| Feature | Status | Priority |
-|-|-|-|
-| Create Root | ✅ | 🔥 |
-| Create Proof | ✅ | 🔥 |
-| Verify Proof | ✅ | 🔥 |
-| Support **[OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/utilities#verifying_merkle_proofs)** | ⏰ | 🔥 |
-| Compatible with **[MerkleTreeJs](https://github.com/miguelmota/merkletreejs)** | ⏰ | 🔥 |
-| Use any Hash function | ⏰ | 🧐 |
-| Leafs of any size | ⏰ | 🧐 |
+| Feature                                                                                                   | Status | Priority |
+| --------------------------------------------------------------------------------------------------------- | ------ | -------- |
+| Create Root                                                                                               | ✅     | 🔥       |
+| Create Proof                                                                                              | ✅     | 🔥       |
+| Verify Proof                                                                                              | ✅     | 🔥       |
+| Support **[OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/utilities#verifying_merkle_proofs)** | ⏰     | 🔥       |
+| Compatible with **[MerkleTreeJs](https://github.com/miguelmota/merkletreejs)**                            | ⏰     | 🔥       |
+| Use any Hash function                                                                                     | ⏰     | 🧐       |
+| Leafs of any size                                                                                         | ⏰     | 🧐       |
 
 ## Contributing
 
