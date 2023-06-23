@@ -19,6 +19,7 @@ keywords = [
     python = "^3.8"
     pysha3 = "^1.0.2"
     pydantic = "^1.10.2"
+    coverage = "^7.2.7"
 
 [tool.poetry.dev-dependencies]
     conventional-pre-commit = "^2.1.1"
