@@ -91,3 +91,48 @@ def test_verify_simple_merkle(leaf: str):
     )
 
     assert tree.verify(tree.proof(leaf), leaf)
+
+
+@mark.parametrize(
+    "left, right, expected",
+    [
+        (None, "efgh", "Node(right: efgh...)"),
+        ("abcd", None, "Node(left: abcd...)"),
+        ("abcd", "efgh", ""),
+    ],
+)
+def test_node_repr(left, right, expected):
+    """
+    Tests the __repr__ method of Node class.
+    """
+    node = Node(left=left, right=right)
+    assert repr(node) == expected
+
+
+def test_make_proof_value_error():
+    """
+    Testa a captura de ValueError na função make_proof
+    """
+    leafs = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    tree = MerkleTree(leafs)
+
+    invalid_leaf = "invalid"
+    with raises(ValueError) as error:
+        tree.make_proof(leafs, [], invalid_leaf)
+
+    assert (
+        str(error.value) == f"Leaf: {invalid_leaf} does not exist in the tree: {leafs}"
+    )
+
+
+def test_merkle_tree_repr():
+    """
+    Testa a representação em string (__repr__) da classe MerkleTree
+    """
+    leafs = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    tree = MerkleTree(leafs, lambda x: f"{x}1")
+
+    expected_repr = """MerkleTree(\nraw_leafs: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']\nleafs: ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1']\nshort_leafs: ['a1...', 'b1...', 'c1...', 'd1...', 'e1...', 'f1...', 'g1...', 'h1...'])"""
+
+    assert repr(tree) == expected_repr
+
