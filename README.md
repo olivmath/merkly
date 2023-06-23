@@ -15,9 +15,6 @@
     <a href="https://github.com/olivmath/merkly/actions/workflows/ci.yml">
         <img src="https://github.com/olivmath/merkly/actions/workflows/ci.yml/badge.svg?branch=main">
     </a>
-    <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/olivmath/merkly" target="_blank">
-      <img src="https://coverage-badge.samuelcolvin.workers.dev/olivmath/merkly.svg" alt="Coverage">
-    </a>
     <a href="https://pypi.org/project/merkly/">
         <img src="https://img.shields.io/pypi/pyversions/merkly">
     </a>
