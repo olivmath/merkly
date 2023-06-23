@@ -10,7 +10,9 @@ import types
 class PowerOfTwoError(Exception):
     def __init__(self, number):
         self.number = number
-        super().__init__(f"Size of leafs should be a power of 2 your leafs length is: {number}")
+        super().__init__(
+            f"Size of leafs should be a power of 2 your leafs length is: {number}"
+        )
 
 
 class InvalidHashFunctionError(Exception):

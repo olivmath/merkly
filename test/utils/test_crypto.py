@@ -3,7 +3,6 @@ from pytest import mark
 from typing import List
 
 
-
 @mark.parametrize(
     "full, half",
     [
