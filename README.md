@@ -74,13 +74,26 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 from merkly.mtree import MerkleTree
 
 # create a Merkle Tree
-mtree = MerkleTree(['a', 'b', 'c', 'd']
+mtree = MerkleTree(['a', 'b', 'c', 'd'])
 
 # show original input
 assert mtree.raw_leafs == ['a', 'b', 'c', 'd']
 
-# show leafs
-assert mtree.leafs == []
+# hashed leafs
+assert mtree.leafs == [
+    '3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb',
+    'b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510',
+    '0b42b6393c1f53060fe3ddbfcd7aadcca894465a5a438f69c87d790b2299b9b2',
+    'f1918e8562236eb17adc8502332f4c9c82bc14e19bfc0aa10ab674ff75b3d2f3'
+]
+
+# shorted hashed leafs
+assert mtree.short_leafs == [
+    '3ac2...',
+    'b555...',
+    '0b42...',
+    'f191...'
+]
 ```
 
 **Create a Root**
@@ -92,7 +105,7 @@ from merkly.mtree import MerkleTree
 mtree = MerkleTree(['a', 'b', 'c', 'd'])
 
 # get root of tree
-assert mtree.root == ""
+assert mtree.root == '115cbb4775ed495f3d954dfa47164359a97762b40059d9502895def16eed609c'
 ```
 
 **Create Proof of a leaf**
@@ -103,8 +116,12 @@ from merkly.mtree import MerkleTree
 # create a Merkle Tree
 mtree = MerkleTree(['a', 'b', 'c', 'd'])
 
-# get proof of a leaf
-assert mtree.proof("b") == []
+# get proof of a `raw` leaf
+assert mtree.proof('b') == [
+    Node(left: '3ac2...'),
+    Node(right: 'b555...'),
+    Node(right: '6467...')
+]
 ```
 
 **Verify Proof of a leaf**
@@ -115,8 +132,8 @@ from merkly.mtree import MerkleTree
 # create a Merkle Tree
 mtree = MerkleTree(['a', 'b', 'c', 'd'])
 
-# get proof of a leaf
-p = mtree.proof("b")
+# get proof of a raw leaf
+p = mtree.proof('b')
 
 # verify your proof
 assert mtree.verify(p) == True

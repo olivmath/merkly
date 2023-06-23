@@ -36,15 +36,16 @@ class MerkleTree:
         is_power_2(leafs.__len__())
         self.leafs: List[str] = self.__hash_leafs(leafs)
         self.raw_leafs = leafs
+        self.short_leafs = self.short(self.leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
         return list(map(keccak, leafs))
 
     def __repr__(self) -> str:
         return f"""MerkleTree(
-            leafs_raw: {self.raw_leafs}
-            leafs_hashed: {self.short(self.leafs)}
-            leafs_hashed_shorted: {self.short(self.leafs)}
+            raw_leafs: {self.raw_leafs}
+            leafs: {self.leafs}
+            short_leafs: {self.short(self.leafs)}
         )"""
 
     def short(self, data: List[str]) -> List[str]:
