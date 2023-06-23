@@ -9,6 +9,7 @@ from functools import reduce
 from merkly.utils.crypto import half, keccak, slice_in_pairs
 from merkly.utils.math import is_power_2
 
+
 class Node(BaseModel):
     """
     # 🍃 Leaf of Merkle Tree
