@@ -1,4 +1,4 @@
-from merkly.utils.math import PowerOfTwoError, is_power_2
+from merkly.utils import PowerOfTwoError, is_power_2
 from pytest import mark, raises
 
 

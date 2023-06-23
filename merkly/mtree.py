@@ -6,8 +6,13 @@ from typing import Callable, List, Optional
 from pydantic import BaseModel
 from functools import reduce
 
-from merkly.utils.crypto import half, keccak, slice_in_pairs
-from merkly.utils.math import is_power_2
+from merkly.utils import is_power_2
+from merkly.utils import (
+    hash_function_type_checking,
+    slice_in_pairs,
+    keccak,
+    half,
+)
 
 
 class Node(BaseModel):
