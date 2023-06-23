@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://pypi.org/project/merkly/">
-    <img alt="Merkly" src="./assets/merkly-banner.png" width="1000">
+    <img alt="Merkly" src="https://raw.githubusercontent.com/olivmath/merkly/main/assets/merkly-banner.png" width="1000">
   </a>
 </p>
 
