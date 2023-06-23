@@ -1,9 +1,24 @@
 """
-Crypto functions
+Utils functions
 """
 
-from typing import List, Tuple
+from typing import Callable, List, Tuple
 from sha3 import keccak_256
+import types
+
+
+class PowerOfTwoError(Exception):
+    def __init__(self, number):
+        self.number = number
+        super().__init__(f"Size of leafs should be a power of 2 your leafs length is: {number}")
+
+
+class InvalidHashFunctionError(Exception):
+    """Exception raised for invalid hash function."""
+
+    def __init__(self) -> None:
+        self.message = "Must type of: (str) -> str"
+        super().__init__(self.message)
 
 
 def keccak(data: str) -> str:
@@ -65,3 +80,35 @@ def slice_in_pairs(list_item: list):
     """
 
     return [list_item[i : i + 2] for i in range(0, len(list_item), 2)]
+
+
+def hash_function_type_checking(hash_function: Callable[[str], str]) -> bool:
+    is_valid = (
+        isinstance(hash_function, types.FunctionType)
+        and callable(hash_function)
+        and isinstance(hash_function(str()), str)
+    )
+    if hash_function is not None and not is_valid:
+        raise InvalidHashFunctionError()
+
+
+def is_power_2(number: int) -> bool:
+    """
+    # Verify if `x: int` is power of 2
+    - params `x: int`
+    - return `bool`
+
+    ```python
+    assert is_power_2(2) == True
+    assert is_power_2(3) == False
+    assert is_power_2(16) == True
+    assert is_power_2(900) == False
+    ```
+    """
+
+    left: bool = number & (number - 1) == 0
+    right: bool = number != 0
+    if left and right:
+        return True
+    else:
+        raise PowerOfTwoError(number)
