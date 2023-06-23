@@ -49,7 +49,7 @@ class MerkleTree:
         )"""
 
     def short(self, data: List[str]) -> List[str]:
-        return [f'{x[:4]}...' for x in data]
+        return [f"{x[:4]}..." for x in data]
 
     @property
     def root(self) -> str:
@@ -60,11 +60,19 @@ class MerkleTree:
         proof.reverse()
         return proof
 
-    def verify(self, proof: List[str]) -> bool:
+    def verify(self, proof: List[str], raw_leaf: str) -> bool:
+        full_proof = [keccak(raw_leaf)]
+        full_proof.extend(proof)
+
         def _f(_x: Node, _y: Node) -> Node:
             """
             # f(x,y) -> Node
             """
+            if not isinstance(_x, Node):
+                if _y.left is not None:
+                    return Node(left=keccak(_y.left + _x))
+                else:
+                    return Node(left=keccak(_x + _y.right))
             if _x.left is not None and _y.left is not None:
                 return Node(left=keccak(_y.left + _x.left))
             if _x.right is not None and _y.right is not None:
@@ -75,7 +83,7 @@ class MerkleTree:
             if _x.left is not None:
                 return Node(left=keccak(_x.left + _y.right))
 
-        return reduce(_f, proof).left == self.root
+        return reduce(_f, full_proof).left == self.root
 
     @staticmethod
     def merkle_root(leafs: list):
@@ -105,16 +113,18 @@ class MerkleTree:
         list then the right side must reach root and vice versa
         """
 
-        if len(leafs) == 2:
-            proof.append(Node(right=leafs[1]))
-            proof.append(Node(left=leafs[0]))
-            return proof
-
         try:
             index = leafs.index(leaf)
         except ValueError as err:
             msg = f"leaf: {leaf} does not exist in the tree: {leafs}"
             raise ValueError(msg) from err
+
+        if len(leafs) == 2:
+            if index == 1:
+                proof.append(Node(left=leafs[0]))
+            else:
+                proof.append(Node(right=leafs[1]))
+            return proof
 
         left, right = half(leafs)
 

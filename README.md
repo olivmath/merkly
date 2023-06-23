@@ -135,8 +135,8 @@ mtree = MerkleTree(['a', 'b', 'c', 'd'])
 # get proof of a raw leaf
 p = mtree.proof('b')
 
-# verify your proof
-assert mtree.verify(p) == True
+# verify your proof of raw leaf
+assert mtree.verify(p, 'b') == True
 ```
 
 ## Roadmap

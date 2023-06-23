@@ -73,7 +73,6 @@ def test_proof_simple_merkle():
     tree = MerkleTree(leafs)
 
     assert tree.proof("a") == [
-        Node(left="3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb"),
         Node(right="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
         Node(right="64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20"),
     ]
@@ -91,4 +90,4 @@ def test_verify_simple_merkle(leaf: str):
         ["a", "b", "c", "d", "e", "f", "g", "h", "1", "2", "3", "4", "5", "6", "7", "8"]
     )
 
-    assert tree.verify(tree.proof(leaf))
+    assert tree.verify(tree.proof(leaf), leaf)
