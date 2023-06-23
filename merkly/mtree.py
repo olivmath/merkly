@@ -65,7 +65,7 @@ class MerkleTree:
 
     @property
     def root(self) -> str:
-        return MerkleTree.merkle_root(self.leafs)[0]
+        return self.make_root(self.leafs)[0]
 
     def proof(self, raw_leaf: str) -> List[Node]:
         proof = self.make_proof(self.leafs, [], self.concat_function(raw_leaf))
@@ -94,15 +94,15 @@ class MerkleTree:
 
         return reduce(_f, full_proof).left == self.root
 
-    @staticmethod
-    def merkle_root(leafs: list):
+    def make_root(self, leafs: List[str]) -> List[str]:
         if len(leafs) == 1:
             return leafs
 
+        return self.make_root(
             [self.concat_function(i + j) for i, j in slice_in_pairs(leafs)]
+        )
 
-    @staticmethod
-    def merkle_proof(leafs: List[str], proof: List[str], leaf: str) -> list:
+    def make_proof(self, leafs: List[str], proof: List[Node], leaf: str) -> List[Node]:
         """
         # Make a proof
 
@@ -122,7 +122,7 @@ class MerkleTree:
         try:
             index = leafs.index(leaf)
         except ValueError as err:
-            msg = f"leaf: {leaf} does not exist in the tree: {leafs}"
+            msg = f"Leaf: {leaf} does not exist in the tree: {leafs}"
             raise ValueError(msg) from err
 
         if len(leafs) == 2:
@@ -135,8 +135,8 @@ class MerkleTree:
         left, right = half(leafs)
 
         if index < len(leafs) / 2:
-            proof.append(Node(right=MerkleTree.merkle_root(right)[0]))
-            return MerkleTree.merkle_proof(left, proof, leaf)
+            proof.append(Node(right=self.make_root(right)[0]))
+            return self.make_proof(left, proof, leaf)
         else:
-            proof.append(Node(left=MerkleTree.merkle_root(left)[0]))
-            return MerkleTree.merkle_proof(right, proof, leaf)
+            proof.append(Node(left=self.make_root(left)[0]))
+            return self.make_proof(right, proof, leaf)
