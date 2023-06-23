@@ -12,6 +12,7 @@ jobs:
       - uses: psf/black@stable
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
