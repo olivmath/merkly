@@ -1,7 +1,7 @@
 """
 # Merkle Tree model
 """
-from merkly.utils.crypto import keccak, half, two_leafs_into_node, slice_in_pairs
+from merkly.utils.crypto import keccak, half, slice_in_pairs
 from merkly.utils.math import is_power_2
 from typing import List, Optional
 from pydantic import BaseModel
