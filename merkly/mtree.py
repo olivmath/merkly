@@ -1,12 +1,13 @@
 """
 Merkle Tree Model
 """
-from merkly.utils.crypto import keccak, half, slice_in_pairs
-from merkly.utils.math import is_power_2
-from typing import List, Optional
+
+from typing import Callable, List, Optional
 from pydantic import BaseModel
 from functools import reduce
 
+from merkly.utils.crypto import half, keccak, slice_in_pairs
+from merkly.utils.math import is_power_2
 
 class Node(BaseModel):
     """
