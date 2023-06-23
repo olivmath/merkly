@@ -2,6 +2,7 @@
 Testing Merkle Tree
 """
 
+from merkly.utils import InvalidHashFunctionError
 from merkly.mtree import MerkleTree, Node
 from pytest import raises, mark
 from typing import List
@@ -135,3 +136,11 @@ def test_merkle_tree_repr():
     expected_repr = """MerkleTree(\nraw_leafs: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']\nleafs: ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1']\nshort_leafs: ['a1...', 'b1...', 'c1...', 'd1...', 'e1...', 'f1...', 'g1...', 'h1...'])"""
 
     assert repr(tree) == expected_repr
+
+
+def test_invalid_hash_function_error():
+    def invalid_hash_function(data):
+        return 123  # Invalid hash function that returns an integer instead of a string
+
+    with raises(InvalidHashFunctionError):
+        MerkleTree(["a", "b", "c", "d"], invalid_hash_function)

@@ -51,6 +51,7 @@ class MerkleTree:
         self, leafs: List[str], hash_function: Callable[[str], str] = keccak
     ) -> None:
         is_power_2(len(leafs))
+        hash_function_type_checking(hash_function)
         self.hash_function: Callable[[str], str] = hash_function
         self.raw_leafs: List[str] = leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
