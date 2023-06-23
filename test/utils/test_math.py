@@ -1,10 +1,9 @@
-from cmath import exp
-from merkly.utils.math import is_power_2
-from pytest import mark
+from merkly.utils.math import PowerOfTwoError, is_power_2
+from pytest import mark, raises
 
 
 @mark.parametrize(
-    "number, expect",
+    "number, ok",
     [
         (3, False),
         (13, False),
@@ -18,5 +17,9 @@ from pytest import mark
         (65536, True),
     ],
 )
-def test_of_is_power_2(number: int, expect: bool):
-    assert expect == is_power_2(number)
+def test_of_is_power_2(number: int, ok: bool):
+    if ok:
+        assert ok == is_power_2(number)
+    else:
+        with raises(PowerOfTwoError):
+            is_power_2(number)
