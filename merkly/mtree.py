@@ -55,8 +55,8 @@ class MerkleTree:
     def root(self) -> str:
         return MerkleTree.merkle_root(self.leafs)[0]
 
-    def proof(self, leaf: str) -> List[Node]:
-        proof = MerkleTree.merkle_proof(self.leafs, [], keccak(leaf))
+    def proof(self, raw_leaf: str) -> List[Node]:
+        proof = MerkleTree.merkle_proof(self.leafs, [], keccak(raw_leaf))
         proof.reverse()
         return proof
 
