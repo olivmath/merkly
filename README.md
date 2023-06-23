@@ -57,7 +57,7 @@ pip install merkly
 
 ## How to works
 
-- _We use keccak-256 under-the-hood_
+- _We use keccak-256 under-the-hood if you dont pass your hash function_
 
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
@@ -72,8 +72,30 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 
 ```python
 from merkly.mtree import MerkleTree
+from typing import Callable
+
+# choose any hash function that is of type (str) -> str
+my_hash_function: Callable[[str], str] = lambda data: str(ord(data) * 1000)
 
 # create a Merkle Tree
+mtree = MerkleTree(['a', 'b', 'c', 'd'], my_hash_function)
+
+# show original input
+assert mtree.raw_leafs == ['a', 'b', 'c', 'd']
+
+# hashed leafs
+assert mtree.leafs == ['97000', '98000', '99000', '100000']
+
+# shorted hashed leafs
+assert mtree.short_leafs == ['9700...', '9800...', '9900...', '1000...']
+```
+
+**Create a Merkle Tree (Default: Keccak256)**
+
+```python
+from merkly.mtree import MerkleTree
+
+# create a Merkle Tree with keccak256
 mtree = MerkleTree(['a', 'b', 'c', 'd'])
 
 # show original input
