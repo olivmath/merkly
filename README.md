@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://pypi.org/project/merkly/">
-    <img alt="Fusion" src="./assets/merkle-tree.png" width="1000">
+    <img alt="Fusion" src="./assets/merkly-banner.png" width="1000">
   </a>
 </p>
 
