@@ -36,19 +36,22 @@ class MerkleTree:
 
     ## Args:
         - leafs: List of raw data
-        - hash_function (Callable[[str], str], optional): Function that hashes the data.
+        - concat_function (Callable[[str], str], optional): Function that hashes the data.
             * Defaults to `keccak` if not provided. It must have the signature (data: str) -> str.
 
     """
 
-    def __init__(self, leafs: List[str]) -> None:
-        is_power_2(leafs.__len__())
+    def __init__(
+        self, leafs: List[str], concat_function: Callable[[str], str] = keccak
+    ) -> None:
+        is_power_2(len(leafs))
+        self.concat_function: Callable[[str], str] = concat_function
+        self.raw_leafs: List[str] = leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
-        self.raw_leafs = leafs
-        self.short_leafs = self.short(self.leafs)
+        self.short_leafs: List[str] = self.short(leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        return list(map(keccak, leafs))
+        return list(map(self.concat_function, leafs))
 
     def __repr__(self) -> str:
         return f"""MerkleTree(
@@ -65,29 +68,29 @@ class MerkleTree:
         return MerkleTree.merkle_root(self.leafs)[0]
 
     def proof(self, raw_leaf: str) -> List[Node]:
-        proof = MerkleTree.merkle_proof(self.leafs, [], keccak(raw_leaf))
+        proof = self.make_proof(self.leafs, [], self.concat_function(raw_leaf))
         proof.reverse()
         return proof
 
     def verify(self, proof: List[str], raw_leaf: str) -> bool:
-        full_proof = [keccak(raw_leaf)]
+        full_proof = [self.concat_function(raw_leaf)]
         full_proof.extend(proof)
 
         def _f(_x: Node, _y: Node) -> Node:
             if not isinstance(_x, Node):
                 if _y.left is not None:
-                    return Node(left=keccak(_y.left + _x))
+                    return Node(left=self.concat_function(_y.left + _x))
                 else:
-                    return Node(left=keccak(_x + _y.right))
+                    return Node(left=self.concat_function(_x + _y.right))
             if _x.left is not None and _y.left is not None:
-                return Node(left=keccak(_y.left + _x.left))
+                return Node(left=self.concat_function(_y.left + _x.left))
             if _x.right is not None and _y.right is not None:
-                return Node(right=keccak(_x.right + _y.right))
+                return Node(right=self.concat_function(_x.right + _y.right))
 
             if _x.right is not None:
-                return Node(right=keccak(_y.left + _x.right))
+                return Node(right=self.concat_function(_y.left + _x.right))
             if _x.left is not None:
-                return Node(left=keccak(_x.left + _y.right))
+                return Node(left=self.concat_function(_x.left + _y.right))
 
         return reduce(_f, full_proof).left == self.root
 
@@ -96,7 +99,7 @@ class MerkleTree:
         if len(leafs) == 1:
             return leafs
 
-        return MerkleTree.merkle_root([keccak(i + j) for i, j in slice_in_pairs(leafs)])
+            [self.concat_function(i + j) for i, j in slice_in_pairs(leafs)]
 
     @staticmethod
     def merkle_proof(leafs: List[str], proof: List[str], leaf: str) -> list:
