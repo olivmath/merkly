@@ -1,5 +1,5 @@
 """
-# Merkle Tree model
+Merkle Tree Model
 """
 from merkly.utils.crypto import keccak, half, slice_in_pairs
 from merkly.utils.math import is_power_2
@@ -10,7 +10,11 @@ from functools import reduce
 
 class Node(BaseModel):
     """
-    # 🍃 Leaf of Tree
+    # 🍃 Leaf of Merkle Tree
+
+    ## Args:
+        - left (Optional[str]): Left child node hash.
+        - right (Optional[str]): Right child node hash.
     """
 
     left: Optional[str]
@@ -27,9 +31,13 @@ class Node(BaseModel):
 
 class MerkleTree:
     """
-    # 🌳 Merkle Tree
-    - You can pass a list of raw data
-    - They will hashed by `keccak-256`
+    # 🌳 Merkle Tree implementation
+
+    ## Args:
+        - leafs: List of raw data
+        - hash_function (Callable[[str], str], optional): Function that hashes the data.
+            * Defaults to `keccak` if not provided. It must have the signature (data: str) -> str.
+
     """
 
     def __init__(self, leafs: List[str]) -> None:
@@ -65,9 +73,6 @@ class MerkleTree:
         full_proof.extend(proof)
 
         def _f(_x: Node, _y: Node) -> Node:
-            """
-            # f(x,y) -> Node
-            """
             if not isinstance(_x, Node):
                 if _y.left is not None:
                     return Node(left=keccak(_y.left + _x))
@@ -87,19 +92,6 @@ class MerkleTree:
 
     @staticmethod
     def merkle_root(leafs: list):
-        """
-        # Merkle Root of `x: list[str]` using keccak256
-        - params `x: list[str]`
-        - return `hexadecimal: list[str]`
-
-        ```python
-        >>> merkle_root(["a", "b", "c", "d"])
-        ["159b0d5005a27c97537ff0e6d1d0d619be408a5e3f2570816b02dc5a18b74f47"]
-
-        >>> merkle_root(["a", "b"])
-        ["414e3a845393ef6d68973ddbf5bd85ff524443cf0e06a361624f3d51b879ec1c"]
-        ```
-        """
         if len(leafs) == 1:
             return leafs
 
@@ -109,8 +101,18 @@ class MerkleTree:
     def merkle_proof(leafs: List[str], proof: List[str], leaf: str) -> list:
         """
         # Make a proof
-        - if the `leaf` index is less than half the size of the `leafs`
+
+        ## Dev:
+            - if the `leaf` index is less than half the size of the `leafs`
         list then the right side must reach root and vice versa
+
+        ## Args:
+            - leafs: List of leafs
+            - proof: Accumulated proof
+            - leaf: Leaf for which to create the proof
+
+        ## Returns:
+            - List of Nodes representing the proof
         """
 
         try:
