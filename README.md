@@ -12,8 +12,8 @@
     <a href="https://pypi.org/project/merkly/">
         <img src="https://img.shields.io/pypi/v/merkly">
     </a>
-    <a href="https://github.com/olivmath/merkly/actions/workflows/test.yml">
-        <img src="https://github.com/olivmath/merkly/actions/workflows/test.yml/badge.svg?branch=main">
+    <a href="https://github.com/olivmath/merkly/actions/workflows/ci.yml">
+        <img src="https://github.com/olivmath/merkly/actions/workflows/ci.yml/badge.svg?branch=main">
     </a>
     <a href="https://pypi.org/project/merkly/">
         <img src="https://img.shields.io/pypi/pyversions/merkly">
