@@ -54,11 +54,7 @@ class MerkleTree:
         return list(map(self.concat_function, leafs))
 
     def __repr__(self) -> str:
-        return f"""MerkleTree(
-            raw_leafs: {self.raw_leafs}
-            leafs: {self.leafs}
-            short_leafs: {self.short(self.leafs)}
-        )"""
+        return f"""MerkleTree(\nraw_leafs: {self.raw_leafs}\nleafs: {self.leafs}\nshort_leafs: {self.short(self.leafs)})"""
 
     def short(self, data: List[str]) -> List[str]:
         return [f"{x[:4]}..." for x in data]
