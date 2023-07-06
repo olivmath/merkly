@@ -6,7 +6,6 @@ from typing import Callable, List, Optional
 from pydantic import BaseModel
 from functools import reduce
 
-from merkly.utils import is_power_2
 from merkly.utils import (
     hash_function_type_checking,
     slice_in_pairs,
@@ -50,7 +49,6 @@ class MerkleTree:
     def __init__(
         self, leafs: List[str], hash_function: Callable[[str], str] = keccak
     ) -> None:
-        is_power_2(len(leafs))
         hash_function_type_checking(hash_function)
         self.hash_function: Callable[[str], str] = hash_function
         self.raw_leafs: List[str] = leafs
