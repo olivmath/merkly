@@ -2,11 +2,12 @@
 Merkle Tree Model
 """
 
-from typing import Callable, List, Optional
-from pydantic import BaseModel
+from typing import Callable, List
 from functools import reduce
 
+
 from merkly.utils import is_power_2
+from merkly.node import Node
 from merkly.utils import (
     hash_function_type_checking,
     slice_in_pairs,
@@ -14,26 +15,6 @@ from merkly.utils import (
     half,
 )
 
-
-class Node(BaseModel):
-    """
-    # 🍃 Leaf of Merkle Tree
-
-    ## Args:
-        - left (Optional[str]): Left child node hash.
-        - right (Optional[str]): Right child node hash.
-    """
-
-    left: Optional[str]
-    right: Optional[str]
-
-    def __repr__(self) -> str:
-        if self.left is None:
-            return f"Node(right: {self.right[:4]}...)"
-        elif self.right is None:
-            return f"Node(left: {self.left[:4]}...)"
-        else:
-            return ""
 
 
 class MerkleTree:
