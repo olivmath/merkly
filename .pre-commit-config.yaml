@@ -1,7 +1,7 @@
 repos:
   - repo: local
     hooks:
-      - id: pytest-check-id
+      - id: pytest
         name: Unit Tests (Pytest)
         entry: pytest
         language: system
