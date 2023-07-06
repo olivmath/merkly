@@ -55,7 +55,7 @@ class MerkleTree:
         self.hash_function: Callable[[str], str] = hash_function
         self.raw_leafs: List[str] = leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
-        self.short_leafs: List[str] = self.short(leafs)
+        self.short_leafs: List[str] = self.short(self.leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
         return list(map(self.hash_function, leafs))
