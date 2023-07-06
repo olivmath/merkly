@@ -139,8 +139,8 @@ def test_merkle_tree_repr():
 
 
 def test_invalid_hash_function_error():
-    def invalid_hash_function(data):
-        return 123  # Invalid hash function that returns an integer instead of a string
+    def invalid_hash_function_that_returns_an_integer_instead_of_a_string(data):
+        return 123
 
     with raises(InvalidHashFunctionError):
-        MerkleTree(["a", "b", "c", "d"], invalid_hash_function)
+        MerkleTree(["a", "b", "c", "d"], invalid_hash_function_that_returns_an_integer_instead_of_a_string)
