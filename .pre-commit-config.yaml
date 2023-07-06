@@ -1,10 +1,21 @@
 repos:
+  - repo: local
+    hooks:
+      - id: pytest-check-id
+        name: Unit Tests (Pytest)
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
+
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
       - id: black
+        name: Format Checker (Black)
         language_version: python3.10
         args: ["--diff"]
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.1.1
     hooks:
@@ -16,14 +27,14 @@ repos:
     rev: v3.0.0-alpha.4
     hooks:
       - id: prettier
-        name: Format Markdown files (prettier)
+        name: Format Markdown files (Prettier)
         files: '\.md$'
       - id: prettier
-        name: Format JSON files (prettier)
+        name: Format JSON files (Prettier)
         files: '\.json$'
       - id: prettier
-        name: Format YAML files (prettier)
+        name: Format YAML files (Prettier)
         files: '\.ya?ml$'
       - id: prettier
-        name: Format TOML files (prettier)
+        name: Format TOML files (Prettier)
         files: '\.toml$'
