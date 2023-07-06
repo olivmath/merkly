@@ -15,6 +15,13 @@ def test_simple_merkle_tree_constructor():
     leafs = ["a", "b", "c", "d"]
     tree = MerkleTree(leafs)
 
+    assert tree.raw_leafs == leafs
+    assert tree.short_leafs == [
+        "3ac2...",
+        "b555...",
+        "0b42...",
+        "f191...",
+    ]
     assert tree.leafs == [
         "3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb",
         "b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510",
@@ -24,28 +31,19 @@ def test_simple_merkle_tree_constructor():
 
 
 @mark.parametrize(
-    "leafs",
-    [
-        ["a", "b", "c", "d", "e", "f", "g"],
-        ["a", "b", "c", "d", "e", "f"],
-        ["a", "b", "c", "d", "e"],
-        ["a", "b", "c"],
-    ],
-)
-def test_error_simple_merkle_tree_constructor(leafs: List[str]):
-    """
-    Instantiated a wrong Merkle Tree
-    """
-    with raises(Exception):
-        MerkleTree(leafs)
-
-
-@mark.parametrize(
     "leafs, root",
     [
         (
+            ["a", "b", "c", "d", "e", "f", "g", "h", "1"],
+            "edcaf6c7e68ed0f1e6f9e6cef0b5be147172cdb2d1c10d0285123bb425c2ad4c",
+        ),
+        (
             ["a", "b", "c", "d", "e", "f", "g", "h"],
             "2dfe93948ecb1a0903dbf034de56d6529e62679519a37ed3b5b3356ab27b7bb8",
+        ),
+        (
+            ["a", "b", "c", "d", "e"],
+            "eaccbf1a24f8bfe6b2b4c3be14a4a782080fab07e3ecc81effa7e4d26f8daf80",
         ),
         (
             ["a", "b", "c", "d"],
@@ -66,17 +64,34 @@ def test_simple_merkle_root(leafs: List[str], root: str):
     assert tree.root == root
 
 
+def test_proof_simple_odd_merkle():
+    """
+    Instantiated a simple Merkle Tree
+    """
+    leafs = ["a", "b", "c", "d", "e"]
+    tree = MerkleTree(leafs)
+    proof = [
+        Node(right="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
+        Node(right="ed3a2f2a068b98ea5eb600912326df7b62037603d2633eba4ccc9a3845674b90"),
+    ]
+
+    assert tree.proof("a") == proof
+    assert tree.verify(proof, "a") == True
+
+
 def test_proof_simple_merkle():
     """
     Instantiated a simple Merkle Tree
     """
     leafs = ["a", "b", "c", "d"]
     tree = MerkleTree(leafs)
-
-    assert tree.proof("a") == [
+    proof = [
         Node(right="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
         Node(right="64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20"),
     ]
+
+    assert tree.proof("a") == proof
+    assert tree.verify(proof, "a")
 
 
 @mark.parametrize(
