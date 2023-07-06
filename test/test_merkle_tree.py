@@ -2,6 +2,7 @@
 Testing Merkle Tree
 """
 
+from merkly.node import Side
 from merkly.utils import InvalidHashFunctionError
 from merkly.mtree import MerkleTree, Node
 from pytest import raises, mark
@@ -74,8 +75,14 @@ def test_proof_simple_merkle():
     tree = MerkleTree(leafs)
 
     assert tree.proof("a") == [
-        Node(right="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
-        Node(right="64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20"),
+        Node(
+            side=Side.RIGHT,
+            data="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510",
+        ),
+        Node(
+            side=Side.RIGHT,
+            data="64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20",
+        ),
     ]
 
 
@@ -91,23 +98,7 @@ def test_verify_simple_merkle(leaf: str):
         ["a", "b", "c", "d", "e", "f", "g", "h", "1", "2", "3", "4", "5", "6", "7", "8"]
     )
 
-    assert tree.verify(tree.proof(leaf), leaf)
-
-
-@mark.parametrize(
-    "left, right, expected",
-    [
-        (None, "efgh", "Node(right: efgh...)"),
-        ("abcd", None, "Node(left: abcd...)"),
-        ("abcd", "efgh", ""),
-    ],
-)
-def test_node_repr(left, right, expected):
-    """
-    Tests the __repr__ method of Node class.
-    """
-    node = Node(left=left, right=right)
-    assert repr(node) == expected
+    assert tree.verify(tree.proof(leaf), leaf), "Proof is False"
 
 
 def test_make_proof_value_error():
