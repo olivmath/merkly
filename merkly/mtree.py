@@ -100,7 +100,10 @@ class MerkleTree:
             return leafs
 
         return self.make_root(
-            [self.hash_function(i + j) for i, j in slice_in_pairs(leafs)]
+            [
+                self.hash_function(pair[0] + pair[1]) if len(pair) > 1 else pair[0]
+                for pair in slice_in_pairs(leafs)
+            ]
         )
 
     def make_proof(self, leafs: List[str], proof: List[Node], leaf: str) -> List[Node]:
