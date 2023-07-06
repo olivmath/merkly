@@ -2,6 +2,7 @@
 Testing Merkle Tree
 """
 
+from merkly.node import Side
 from merkly.utils import InvalidHashFunctionError
 from merkly.mtree import MerkleTree, Node
 from pytest import raises, mark
@@ -85,9 +86,16 @@ def test_proof_simple_merkle():
     """
     leafs = ["a", "b", "c", "d"]
     tree = MerkleTree(leafs)
-    proof = [
-        Node(right="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
-        Node(right="64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20"),
+
+    assert tree.proof("a") == [
+        Node(
+            side=Side.RIGHT,
+            data="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510",
+        ),
+        Node(
+            side=Side.RIGHT,
+            data="64673cf40035df6d3a0d0143cc8426de49b9a93b9ad2d330cb4f0bc390a86d20",
+        ),
     ]
 
     assert tree.proof("a") == proof
@@ -106,23 +114,7 @@ def test_verify_simple_merkle(leaf: str):
         ["a", "b", "c", "d", "e", "f", "g", "h", "1", "2", "3", "4", "5", "6", "7", "8"]
     )
 
-    assert tree.verify(tree.proof(leaf), leaf)
-
-
-@mark.parametrize(
-    "left, right, expected",
-    [
-        (None, "efgh", "Node(right: efgh...)"),
-        ("abcd", None, "Node(left: abcd...)"),
-        ("abcd", "efgh", ""),
-    ],
-)
-def test_node_repr(left, right, expected):
-    """
-    Tests the __repr__ method of Node class.
-    """
-    node = Node(left=left, right=right)
-    assert repr(node) == expected
+    assert tree.verify(tree.proof(leaf), leaf), "Proof is False"
 
 
 def test_make_proof_value_error():
@@ -154,8 +146,8 @@ def test_merkle_tree_repr():
 
 
 def test_invalid_hash_function_error():
-    def invalid_hash_function(data):
-        return 123  # Invalid hash function that returns an integer instead of a string
+    def invalid_hash_function_that_returns_an_integer_instead_of_a_string(data):
+        return 123
 
     with raises(InvalidHashFunctionError):
-        MerkleTree(["a", "b", "c", "d"], invalid_hash_function)
+        MerkleTree(["a", "b", "c", "d"], invalid_hash_function_that_returns_an_integer_instead_of_a_string)

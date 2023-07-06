@@ -2,37 +2,16 @@
 Merkle Tree Model
 """
 
-from typing import Callable, List, Optional
-from pydantic import BaseModel
+from typing import Callable, List
 from functools import reduce
 
+from merkly.node import Node, Side
 from merkly.utils import (
     hash_function_type_checking,
     slice_in_pairs,
     keccak,
     half,
 )
-
-
-class Node(BaseModel):
-    """
-    # 🍃 Leaf of Merkle Tree
-
-    ## Args:
-        - left (Optional[str]): Left child node hash.
-        - right (Optional[str]): Right child node hash.
-    """
-
-    left: Optional[str]
-    right: Optional[str]
-
-    def __repr__(self) -> str:
-        if self.left is None:
-            return f"Node(right: {self.right[:4]}...)"
-        elif self.right is None:
-            return f"Node(left: {self.left[:4]}...)"
-        else:
-            return ""
 
 
 class MerkleTree:
@@ -53,7 +32,7 @@ class MerkleTree:
         self.hash_function: Callable[[str], str] = hash_function
         self.raw_leafs: List[str] = leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
-        self.short_leafs: List[str] = self.short(leafs)
+        self.short_leafs: List[str] = self.short(self.leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
         return list(map(self.hash_function, leafs))
@@ -77,23 +56,24 @@ class MerkleTree:
         full_proof = [self.hash_function(raw_leaf)]
         full_proof.extend(proof)
 
-        def _f(_x: Node, _y: Node) -> Node:
-            if not isinstance(_x, Node):
-                if _y.left is not None:
-                    return Node(left=self.hash_function(_y.left + _x))
+        def concat_nodes(left: Node, right: Node) -> Node:
+            if isinstance(left, Node) is not True:
+                start_node = left
+                if right.side == Side.RIGHT:
+                    data = self.hash_function(start_node + right.data)
+                    return Node(data=data, side=Side.LEFT)
                 else:
-                    return Node(left=self.hash_function(_x + _y.right))
-            if _x.left is not None and _y.left is not None:
-                return Node(left=self.hash_function(_y.left + _x.left))
-            if _x.right is not None and _y.right is not None:
-                return Node(right=self.hash_function(_x.right + _y.right))
+                    data = self.hash_function(right.data + start_node)
+                    return Node(data=data, side=Side.RIGHT)
+            else:
+                if right.side == Side.RIGHT:
+                    data = self.hash_function(left.data + right.data)
+                    return Node(data=data, side=Side.LEFT)
+                else:
+                    data = self.hash_function(right.data + left.data)
+                    return Node(data=data, side=Side.RIGHT)
 
-            if _x.right is not None:
-                return Node(right=self.hash_function(_y.left + _x.right))
-            if _x.left is not None:
-                return Node(left=self.hash_function(_x.left + _y.right))
-
-        return reduce(_f, full_proof).left == self.root
+        return reduce(concat_nodes, full_proof).data == self.root
 
     def make_root(self, leafs: List[str]) -> List[str]:
         if len(leafs) == 1:
@@ -131,16 +111,16 @@ class MerkleTree:
 
         if len(leafs) == 2:
             if index == 1:
-                proof.append(Node(left=leafs[0]))
+                proof.append(Node(data=leafs[0], side=Side.LEFT))
             else:
-                proof.append(Node(right=leafs[1]))
+                proof.append(Node(data=leafs[1], side=Side.RIGHT))
             return proof
 
         left, right = half(leafs)
 
         if index < len(leafs) / 2:
-            proof.append(Node(right=self.make_root(right)[0]))
+            proof.append(Node(data=self.make_root(right)[0], side=Side.RIGHT))
             return self.make_proof(left, proof, leaf)
         else:
-            proof.append(Node(left=self.make_root(left)[0]))
+            proof.append(Node(data=self.make_root(left)[0], side=Side.LEFT))
             return self.make_proof(right, proof, leaf)
