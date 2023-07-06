@@ -169,9 +169,9 @@ assert mtree.verify(p, 'b') == True
 | Create Proof                                                                                              | ✅     | 🔥       |
 | Verify Proof                                                                                              | ✅     | 🔥       |
 | Use any Hash function                                                                                     | ✅     | 🧐       |
+| Leafs of any size                                                                                         | ✅     | 🧐       |
 | Support **[OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/utilities#verifying_merkle_proofs)** | ⏰     | 🔥       |
 | Compatible with **[MerkleTreeJs](https://github.com/miguelmota/merkletreejs)**                            | ⏰     | 🔥       |
-| Leafs of any size                                                                                         | ⏰     | 🧐       |
 
 ## Contributing
 
