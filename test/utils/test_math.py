@@ -18,8 +18,4 @@ from pytest import mark, raises
     ],
 )
 def test_of_is_power_2(number: int, ok: bool):
-    if ok:
-        assert ok == is_power_2(number)
-    else:
-        with raises(PowerOfTwoError):
-            is_power_2(number)
+    assert ok == is_power_2(number)

@@ -70,14 +70,13 @@ def test_proof_simple_odd_merkle():
     Instantiated a simple Merkle Tree
     """
     leafs = ["a", "b", "c", "d", "e"]
-    tree = MerkleTree(leafs)
+    tree = MerkleTree(leafs, lambda x, y: x + y)
     proof = [
-        Node(right="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
-        Node(right="ed3a2f2a068b98ea5eb600912326df7b62037603d2633eba4ccc9a3845674b90"),
+        Node(data="abcd", side=Side.LEFT),
     ]
 
-    assert tree.proof("a") == proof
-    assert tree.verify(proof, "a") == True
+    assert tree.proof("e") == proof, "Proofs dont's match"
+    assert tree.verify(proof, "e"), "Proof dont's right"
 
 
 def test_proof_simple_merkle():
@@ -86,8 +85,7 @@ def test_proof_simple_merkle():
     """
     leafs = ["a", "b", "c", "d"]
     tree = MerkleTree(leafs)
-
-    assert tree.proof("a") == [
+    proof = [
         Node(
             side=Side.RIGHT,
             data="b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510",
@@ -150,4 +148,7 @@ def test_invalid_hash_function_error():
         return 123
 
     with raises(InvalidHashFunctionError):
-        MerkleTree(["a", "b", "c", "d"], invalid_hash_function_that_returns_an_integer_instead_of_a_string)
+        MerkleTree(
+            ["a", "b", "c", "d"],
+            invalid_hash_function_that_returns_an_integer_instead_of_a_string,
+        )

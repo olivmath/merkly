@@ -8,6 +8,7 @@ from functools import reduce
 from merkly.node import Node, Side
 from merkly.utils import (
     hash_function_type_checking,
+    is_power_2,
     slice_in_pairs,
     keccak,
     half,
@@ -109,6 +110,9 @@ class MerkleTree:
             msg = f"Leaf: {leaf} does not exist in the tree: {leafs}"
             raise ValueError(msg) from err
 
+        if is_power_2(len(leafs)) is False:
+            return self.mix_tree(leafs, [], index)
+
         if len(leafs) == 2:
             if index == 1:
                 proof.append(Node(data=leafs[0], side=Side.LEFT))
@@ -125,3 +129,29 @@ class MerkleTree:
         else:
             proof.append(Node(data=self.make_root(left)[0], side=Side.LEFT))
             return self.make_proof(right, proof, leaf)
+
+    def mix_tree(
+        self, leaves: List[str], proof: List[Node], leaf_index: int
+    ) -> List[Node]:
+        if len(leaves) == 1:
+            return proof
+
+        if leaf_index % 2 == 0:
+            if leaf_index + 1 < len(leaves):
+                node = Node(data=leaves[leaf_index + 1], side=Side.RIGHT)
+                proof.append(node)
+        else:
+            node = Node(data=leaves[leaf_index - 1], side=Side.LEFT)
+            proof.append(node)
+
+        return self.mix_tree(self.up_layer(leaves), proof, leaf_index // 2)
+
+    def up_layer(self, leaves: List[str]) -> List[str]:
+        new_layer = []
+        for pair in slice_in_pairs(leaves):
+            if len(pair) == 1:
+                new_layer.append(pair[0])
+            else:
+                data = self.hash_function(pair[0], pair[1])
+                new_layer.append(data)
+        return new_layer

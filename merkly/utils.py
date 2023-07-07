@@ -85,12 +85,15 @@ def slice_in_pairs(list_item: list):
 
 
 def hash_function_type_checking(hash_function: Callable[[str], str]) -> bool:
-    is_valid = (
-        isinstance(hash_function, types.FunctionType)
-        and callable(hash_function)
-        and isinstance(hash_function(str()), str)
-    )
-    if hash_function is not None and not is_valid:
+    a = isinstance(hash_function, types.FunctionType)
+    b = callable(hash_function)
+    try:
+        c = isinstance(hash_function(str(), str()), str)
+    except TypeError:
+        c = False
+
+    valid = a and b and c
+    if not valid:
         raise InvalidHashFunctionError()
 
 
@@ -113,4 +116,4 @@ def is_power_2(number: int) -> bool:
     if left and right:
         return True
     else:
-        raise PowerOfTwoError(number)
+        return False
