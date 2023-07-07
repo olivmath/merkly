@@ -26,7 +26,9 @@ class MerkleTree:
     """
 
     def __init__(
-        self, leafs: List[str], hash_function: Callable[[str], str] = keccak
+        self,
+        leafs: List[str],
+        hash_function: Callable[[str], str] = lambda x, y: keccak(x + y),
     ) -> None:
         hash_function_type_checking(hash_function)
         self.hash_function: Callable[[str], str] = hash_function
@@ -35,7 +37,7 @@ class MerkleTree:
         self.short_leafs: List[str] = self.short(self.leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        return list(map(self.hash_function, leafs))
+        return list(map(lambda x: self.hash_function(x, ""), leafs))
 
     def __repr__(self) -> str:
         return f"""MerkleTree(\nraw_leafs: {self.raw_leafs}\nleafs: {self.leafs}\nshort_leafs: {self.short(self.leafs)})"""
@@ -51,24 +53,24 @@ class MerkleTree:
         return self.make_proof(self.leafs, [], self.hash_function(raw_leaf, ""))
 
     def verify(self, proof: List[str], raw_leaf: str) -> bool:
-        full_proof = [self.hash_function(raw_leaf)]
+        full_proof = [self.hash_function(raw_leaf, "")]
         full_proof.extend(proof)
 
         def concat_nodes(left: Node, right: Node) -> Node:
             if isinstance(left, Node) is not True:
                 start_node = left
                 if right.side == Side.RIGHT:
-                    data = self.hash_function(start_node + right.data)
+                    data = self.hash_function(start_node, right.data)
                     return Node(data=data, side=Side.LEFT)
                 else:
-                    data = self.hash_function(right.data + start_node)
+                    data = self.hash_function(right.data, start_node)
                     return Node(data=data, side=Side.RIGHT)
             else:
                 if right.side == Side.RIGHT:
-                    data = self.hash_function(left.data + right.data)
+                    data = self.hash_function(left.data, right.data)
                     return Node(data=data, side=Side.LEFT)
                 else:
-                    data = self.hash_function(right.data + left.data)
+                    data = self.hash_function(right.data, left.data)
                     return Node(data=data, side=Side.RIGHT)
 
         return reduce(concat_nodes, full_proof).data == self.root
@@ -79,7 +81,7 @@ class MerkleTree:
 
         return self.make_root(
             [
-                self.hash_function(pair[0] + pair[1]) if len(pair) > 1 else pair[0]
+                self.hash_function(pair[0], pair[1]) if len(pair) > 1 else pair[0]
                 for pair in slice_in_pairs(leafs)
             ]
         )

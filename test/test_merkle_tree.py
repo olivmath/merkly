@@ -138,7 +138,7 @@ def test_merkle_tree_repr():
     Testa a representação em string (__repr__) da classe MerkleTree
     """
     leafs = ["a", "b", "c", "d", "e", "f", "g", "h"]
-    tree = MerkleTree(leafs, lambda x: f"{x}1")
+    tree = MerkleTree(leafs, lambda x, y: f"{x}{y}1")
 
     expected_repr = """MerkleTree(\nraw_leafs: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']\nleafs: ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1']\nshort_leafs: ['a1...', 'b1...', 'c1...', 'd1...', 'e1...', 'f1...', 'g1...', 'h1...'])"""
 
