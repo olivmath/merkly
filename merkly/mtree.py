@@ -48,9 +48,7 @@ class MerkleTree:
         return self.make_root(self.leafs)[0]
 
     def proof(self, raw_leaf: str) -> List[Node]:
-        proof = self.make_proof(self.leafs, [], self.hash_function(raw_leaf))
-        proof.reverse()
-        return proof
+        return self.make_proof(self.leafs, [], self.hash_function(raw_leaf, ""))
 
     def verify(self, proof: List[str], raw_leaf: str) -> bool:
         full_proof = [self.hash_function(raw_leaf)]
@@ -114,6 +112,7 @@ class MerkleTree:
                 proof.append(Node(data=leafs[0], side=Side.LEFT))
             else:
                 proof.append(Node(data=leafs[1], side=Side.RIGHT))
+            proof.reverse()
             return proof
 
         left, right = half(leafs)
