@@ -3,7 +3,7 @@ repos:
     hooks:
       - id: pytest
         name: Unit Tests (Pytest)
-        entry: pytest
+        entry: pytest -m "not benchmark"
         language: system
         pass_filenames: false
         always_run: true
