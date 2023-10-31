@@ -3,7 +3,7 @@ Utils functions
 """
 
 from typing import Callable, List, Tuple
-from sha3 import keccak_256
+from Crypto.Hash import keccak as cryptodome_keccak
 import types
 
 
@@ -43,7 +43,11 @@ def keccak(data: str) -> str:
     "541111248b45b7a8dc3f5579f630e74cb01456ea6ac067d3f4d793245a255155"
     ```
     """
-    return keccak_256(data.encode()).hexdigest()
+
+    keccak_256 = cryptodome_keccak.new(digest_bits=256)
+    keccak_256.update(data.encode())
+
+    return keccak_256.hexdigest()
 
 
 def half(list_item: List[int]) -> Tuple[int, int]:

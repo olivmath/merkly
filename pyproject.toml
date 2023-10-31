@@ -16,14 +16,14 @@ keywords = [
 ]
 
 [tool.poetry.dependencies]
-    python = "^3.8"
-    pysha3 = "^1.0.2"
+    pycryptodome = "^3.19.0"
     pydantic = "^1.10.2"
-    coverage = "^7.2.7"
+    python = "^3.8"
 
 [tool.poetry.dev-dependencies]
     conventional-pre-commit = "^2.1.1"
     pre-commit = "^3.0.3"
+    coverage = "^7.2.7"
     pyclean = "^2.2.0"
     pytest = "^7.2.1"
     black = "^23.1.0"
