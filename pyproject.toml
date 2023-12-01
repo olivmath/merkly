@@ -21,7 +21,7 @@ keywords = [
     python = "^3.8"
 
 [tool.poetry.dev-dependencies]
-    conventional-pre-commit = "^2.1.1"
+    conventional-pre-commit = "^3.0.0"
     pre-commit = "^3.0.3"
     coverage = "^7.2.7"
     pyclean = "^2.2.0"
