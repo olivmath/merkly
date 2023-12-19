@@ -48,7 +48,7 @@ class MerkleTree:
 
     @property
     def root(self) -> str:
-        return self.make_root(self.leafs)[0]
+        return self.make_root(self.leafs)
 
     def proof(self, raw_leaf: str) -> List[Node]:
         return self.make_proof(self.leafs, [], self.hash_function(raw_leaf, ""))

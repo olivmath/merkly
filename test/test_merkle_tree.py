@@ -48,7 +48,7 @@ def test_simple_merkle_tree_constructor():
         ),
         (
             ["a", "b", "c", "d"],
-            "115cbb4775ed495f3d954dfa47164359a97762b40059d9502895def16eed609c",
+            "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd",
         ),
         (
             ["a", "b"],
