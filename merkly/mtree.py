@@ -30,6 +30,7 @@ class MerkleTree:
         self,
         leafs: List[str],
         hash_function: Callable[[str], str] = lambda x, y: keccak(x + y),
+        merkletreejs: bool = False,
     ) -> None:
         hash_function_type_checking(hash_function)
         self.hash_function: Callable[[str], str] = hash_function
