@@ -1,11 +1,11 @@
 import hashlib
 
 def hash_function(data):
-    return hashlib.sha256(data.encode()).hexdigest()
+    return hashlib.sha256(data).digest()
 
 def merkle_tree_root(leaves):
     # Converte as folhas para hashed leaves se necessário
-    hashed_leaves = [hash_function(leaf) for leaf in leaves]
+    hashed_leaves = [hash_function(leaf.encode()) for leaf in leaves]
     
     # Constrói as camadas da árvore
     while len(hashed_leaves) > 1:
@@ -22,5 +22,4 @@ def merkle_tree_root(leaves):
 # Alterando as folhas para ['a', 'b', 'c', 'd'] e recalculando a raiz da Merkle
 leaves = ["a", "b", "c", "d"]
 root = merkle_tree_root(leaves)
-root.hex()  # Retorna a raiz da Merkle em formato hexadecimal
-
+print(root.hex())  # Retorna a raiz da Merkle em formato hexadecimal
