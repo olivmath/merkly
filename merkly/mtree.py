@@ -7,7 +7,7 @@ from functools import reduce
 
 from merkly.node import Node, Side
 from merkly.utils import (
-    hash_function_type_checking,
+    validate_hash_function,
     is_power_2,
     slice_in_pairs,
     keccak,
@@ -30,19 +30,19 @@ class MerkleTree:
     def __init__(
         self,
         leafs: List[str],
-        hash_function: Callable[[str], str] = lambda x, y: keccak(x + y),
+        hash_function: Callable[[bytes, bytes], bytes] = lambda x, y: keccak(x + y),
         merkletreejs: bool = False,
     ) -> None:
         validate_leafs(leafs, merkletreejs)
-        hash_function_type_checking(hash_function)
-        self.hash_function: Callable[[str], str] = hash_function
+        validate_hash_function(hash_function)
+        self.hash_function: Callable[[bytes, bytes], bytes] = hash_function
         self.raw_leafs: List[str] = leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
         self.short_leafs: List[str] = self.short(self.leafs)
         self.merkletreejs = merkletreejs
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        return list(map(lambda x: self.hash_function(x, ""), leafs))
+        return list(map(lambda x: self.hash_function(x.encode(), b""), leafs))
 
     def __repr__(self) -> str:
         return f"""MerkleTree(\nraw_leafs: {self.raw_leafs}\nleafs: {self.leafs}\nshort_leafs: {self.short(self.leafs)})"""
@@ -51,7 +51,7 @@ class MerkleTree:
         return [f"{x[:4]}..." for x in data]
 
     @property
-    def root(self) -> str:
+    def root(self) -> bytes:
         if self.merkletreejs:
             return self.merkletreejs_root(self.leafs)
         else:

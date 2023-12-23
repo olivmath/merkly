@@ -17,18 +17,21 @@ def test_simple_merkle_tree_constructor():
     tree = MerkleTree(leafs)
 
     assert tree.raw_leafs == leafs
-    assert tree.short_leafs == [
-        "3ac2...",
-        "b555...",
-        "0b42...",
-        "f191...",
-    ]
+    for i, j in zip(tree.short_leafs, [
+        bytes.fromhex("3ac2"),
+        bytes.fromhex("b555"),
+        bytes.fromhex("0b42"),
+        bytes.fromhex("f191"),
+    ]):
+        assert i == j
     assert tree.leafs == [
-        "3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb",
-        "b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510",
-        "0b42b6393c1f53060fe3ddbfcd7aadcca894465a5a438f69c87d790b2299b9b2",
-        "f1918e8562236eb17adc8502332f4c9c82bc14e19bfc0aa10ab674ff75b3d2f3",
+        bytes.fromhex("3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb"),
+        bytes.fromhex("b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"),
+        bytes.fromhex("0b42b6393c1f53060fe3ddbfcd7aadcca894465a5a438f69c87d790b2299b9b2"),
+        bytes.fromhex("f1918e8562236eb17adc8502332f4c9c82bc14e19bfc0aa10ab674ff75b3d2f3"),
     ]
+    
+    assert tree.root.hex() == "68203f90e9d07dc5859259d7536e87a6ba9d345f2552b5b9de2999ddce9ce1bf"
 
 
 @mark.parametrize(
