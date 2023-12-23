@@ -88,6 +88,16 @@ def slice_in_pairs(list_item: list):
     return [list_item[i : i + 2] for i in range(0, len(list_item), 2)]
 
 
+def validate_leafs(leafs: List[str]):
+    if len(leafs) < 2:
+        raise Exception("Invalid size, need > 2")
+
+    a = isinstance(leafs, List)
+    b = all(isinstance(leaf, str) for leaf in leafs)
+    if not (a and b):
+        raise Exception("Invalid type of leafs")
+
+
 def validate_hash_function(hash_function: Callable[[bytes, bytes], bytes]):
     a = isinstance(hash_function, types.FunctionType)
     b = callable(hash_function)
