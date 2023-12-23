@@ -39,6 +39,7 @@ class MerkleTree:
         self.raw_leafs: List[str] = leafs
         self.leafs: List[str] = self.__hash_leafs(leafs)
         self.short_leafs: List[str] = self.short(self.leafs)
+        self.merkletreejs = merkletreejs
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
         return list(map(lambda x: self.hash_function(x, ""), leafs))
@@ -51,7 +52,10 @@ class MerkleTree:
 
     @property
     def root(self) -> str:
-        return self.make_root(self.leafs)[0]
+        if self.merkletreejs:
+            return self.merkletreejs_root(self.leafs)
+        else:
+            return self.make_root(self.leafs)[0]
 
     def proof(self, raw_leaf: str) -> List[Node]:
         return self.make_proof(self.leafs, [], self.hash_function(raw_leaf, ""))
@@ -158,3 +162,7 @@ class MerkleTree:
                 data = self.hash_function(pair[0], pair[1])
                 new_layer.append(data)
         return new_layer
+
+
+    def merkletreejs_root(self, leafs: List[str]) -> str:
+        return ""
