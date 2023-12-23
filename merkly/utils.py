@@ -88,7 +88,7 @@ def slice_in_pairs(list_item: list):
     return [list_item[i : i + 2] for i in range(0, len(list_item), 2)]
 
 
-def hash_function_type_checking(hash_function: Callable[[str], str]) -> bool:
+def validate_hash_function(hash_function: Callable[[bytes, bytes], bytes]):
     a = isinstance(hash_function, types.FunctionType)
     b = callable(hash_function)
     try:
