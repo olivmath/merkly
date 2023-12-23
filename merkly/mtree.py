@@ -12,6 +12,7 @@ from merkly.utils import (
     slice_in_pairs,
     keccak,
     half,
+    validate_leafs,
 )
 
 
@@ -32,6 +33,7 @@ class MerkleTree:
         hash_function: Callable[[str], str] = lambda x, y: keccak(x + y),
         merkletreejs: bool = False,
     ) -> None:
+        validate_leafs(leafs, merkletreejs)
         hash_function_type_checking(hash_function)
         self.hash_function: Callable[[str], str] = hash_function
         self.raw_leafs: List[str] = leafs

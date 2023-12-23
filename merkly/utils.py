@@ -23,6 +23,19 @@ class InvalidHashFunctionError(Exception):
         super().__init__(self.message)
 
 
+class SizeIncompatibleWithMerkleTreeJS(Exception):
+    def __init__(self, number):
+        self.number = number
+        super().__init__(
+            f"Size of leafs should be a po wer of 2, like: 2, 4, 8, 16\nYour leafs size: {number}"
+        )
+
+
+def validate_leafs(leafs: list[str], merkletreejs: bool):
+    if merkletreejs and not is_power_2(len(leafs)):
+        raise SizeIncompatibleWithMerkleTreeJS(len(leafs))
+
+
 def keccak(data: str) -> str:
     """
     # Hash `data: str` using keccak256
