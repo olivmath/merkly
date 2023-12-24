@@ -5,12 +5,12 @@ import hashlib
 
 
 def test_simple_merkle_tree_constructor():
-    leafs = ["a", "b", "c", "d"]
-    tree = MerkleTree(leafs)
+    leaves = ["a", "b", "c", "d"]
+    tree = MerkleTree(leaves)
 
-    assert tree.raw_leafs == leafs
+    assert tree.raw_leaves == leaves
     for i, j in zip(
-        tree.short_leafs,
+        tree.short_leaves,
         [
             bytes.fromhex("3ac2"),
             bytes.fromhex("b555"),
@@ -19,7 +19,7 @@ def test_simple_merkle_tree_constructor():
         ],
     ):
         assert i == j
-    assert tree.leafs == [
+    assert tree.leaves == [
         bytes.fromhex(
             "3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb"
         ),
@@ -41,7 +41,7 @@ def test_simple_merkle_tree_constructor():
 
 
 @mark.parametrize(
-    "leafs, root",
+    "leaves, root",
     [
         (
             ["a", "b", "c", "d", "e", "f", "g", "h", "1"],
@@ -65,14 +65,14 @@ def test_simple_merkle_tree_constructor():
         ),
     ],
 )
-def test_simple_merkle_root_with_keccak256(leafs: List[str], root: str):
-    tree = MerkleTree(leafs)
+def test_simple_merkle_root_with_keccak256(leaves: List[str], root: str):
+    tree = MerkleTree(leaves)
     result = tree.root.hex()
     assert result == root
 
 
 @mark.parametrize(
-    "leafs, root",
+    "leaves, root",
     [
         (
             ["a", "b", "c", "d", "e", "f", "g", "h", "1"],
@@ -96,20 +96,20 @@ def test_simple_merkle_root_with_keccak256(leafs: List[str], root: str):
         ),
     ],
 )
-def test_simple_merkle_root_with_sha_256(leafs: List[str], root: str):
+def test_simple_merkle_root_with_sha_256(leaves: List[str], root: str):
     def sha_256(x: bytes, y: bytes) -> bytes:
         data = x + y
         h = hashlib.sha256()
         h.update(data)
         return h.digest()
 
-    tree = MerkleTree(leafs, hash_function=sha_256)
+    tree = MerkleTree(leaves, hash_function=sha_256)
     result = tree.root.hex()
     assert result == root
 
 
 @mark.parametrize(
-    "leafs, root",
+    "leaves, root",
     [
         (
             ["a", "b", "c", "d", "e", "f", "g", "h", "1"],
@@ -133,20 +133,20 @@ def test_simple_merkle_root_with_sha_256(leafs: List[str], root: str):
         ),
     ],
 )
-def test_simple_merkle_root_with_shake256(leafs: List[str], root: str):
+def test_simple_merkle_root_with_shake256(leaves: List[str], root: str):
     def shake_256(x: bytes, y: bytes) -> bytes:
         data = x + y
         h = hashlib.shake_256()
         h.update(data)
         return h.digest(32)
 
-    tree = MerkleTree(leafs, hash_function=shake_256)
+    tree = MerkleTree(leaves, hash_function=shake_256)
     result = tree.root.hex()
     assert result == root
 
 
 @mark.parametrize(
-    "leafs, root",
+    "leaves, root",
     [
         (
             ["a", "b", "c", "d", "e", "f", "g", "h", "1"],
@@ -170,13 +170,13 @@ def test_simple_merkle_root_with_shake256(leafs: List[str], root: str):
         ),
     ],
 )
-def test_simple_merkle_root_with_sha3_256(leafs: List[str], root: str):
+def test_simple_merkle_root_with_sha3_256(leaves: List[str], root: str):
     def sha3_256(x: bytes, y: bytes) -> bytes:
         data = x + y
         h = hashlib.sha3_256()
         h.update(data)
         return h.digest()
 
-    tree = MerkleTree(leafs, hash_function=sha3_256)
+    tree = MerkleTree(leaves, hash_function=sha3_256)
     result = tree.root.hex()
     assert result == root
