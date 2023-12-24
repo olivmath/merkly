@@ -15,46 +15,44 @@ from merkly.utils import (
     validate_leafs,
 )
 
-
 class MerkleTree:
     """
     # 🌳 Merkle Tree implementation
 
     ## Args:
-        - leafs: List of raw data
-        - hash_function (Callable[[str], str], optional): Function that hashes the data.
-            * Defaults to `keccak` if not provided. It must have the signature (data: str) -> str.
-
+        - leaves: List of raw data
+        - hash_function (Callable[[bytes, bytes], bytes], optional): Function that hashes the data.
+            * Defaults to `keccak` if not provided
     """
 
     def __init__(
         self,
-        leafs: List[str],
+        leaves: List[str],
         hash_function: Callable[[bytes, bytes], bytes] = lambda x, y: keccak(x + y),
     ) -> None:
-        validate_leafs(leafs)
+        validate_leafs(leaves)
         validate_hash_function(hash_function)
         self.hash_function: Callable[[bytes, bytes], bytes] = hash_function
-        self.raw_leafs: List[str] = leafs
-        self.leafs: List[str] = self.__hash_leafs(leafs)
-        self.short_leafs: List[str] = self.short(self.leafs)
+        self.raw_leaves: List[str] = leaves
+        self.leaves: List[str] = self.__hash_leaves(leaves)
+        self.short_leaves: List[str] = self.short(self.leaves)
 
-    def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        return list(map(lambda x: self.hash_function(x.encode(), bytes()), leafs))
+    def __hash_leaves(self, leaves: List[str]) -> List[str]:
+        return list(map(lambda x: self.hash_function(x.encode(), bytes()), leaves))
 
     def __repr__(self) -> str:
-        return f"""MerkleTree(\nraw_leafs: {self.raw_leafs}\nleafs: {self.leafs}\nshort_leafs: {self.short(self.leafs)})"""
+        return f"""MerkleTree(\nraw_leaves: {self.raw_leaves}\nleaves: {self.leaves}\nshort_leaves: {self.short(self.leaves)})"""
 
     def short(self, data: List[str]) -> List[str]:
         return [x[:2] for x in data]
 
     @property
     def root(self) -> bytes:
-        return self.make_root(self.leafs)
+        return self.make_root(self.leaves)
 
     def proof(self, raw_leaf: str) -> List[Node]:
         return self.make_proof(
-            self.leafs, [], self.hash_function(raw_leaf.encode(), bytes())
+            self.leaves, [], self.hash_function(raw_leaf.encode(), bytes())
         )
 
     def verify(self, proof: List[bytes], raw_leaf: str) -> bool:
@@ -80,31 +78,31 @@ class MerkleTree:
 
         return reduce(concat_nodes, full_proof).data == self.root
 
-    def make_root(self, leafs: List[bytes]) -> List[str]:
-        while len(leafs) > 1:
+    def make_root(self, leaves: List[bytes]) -> bytes:
+        while len(leaves) > 1:
             next_level = []
-            for i in range(0, len(leafs) - 1, 2):
-                next_level.append(self.hash_function(leafs[i], leafs[i + 1]))
+            for i in range(0, len(leaves) - 1, 2):
+                next_level.append(self.hash_function(leaves[i], leaves[i + 1]))
 
-            if len(leafs) % 2 == 1:
-                next_level.append(leafs[-1])
+            if len(leaves) % 2 == 1:
+                next_level.append(leaves[-1])
 
-            leafs = next_level
+            leaves = next_level
 
-        return leafs[0]
+        return leaves[0]
 
     def make_proof(
-        self, leafs: List[bytes], proof: List[Node], leaf: bytes
+        self, leaves: List[bytes], proof: List[Node], leaf: bytes
     ) -> List[Node]:
         """
         # Make a proof
 
         ## Dev:
-            - if the `leaf` index is less than half the size of the `leafs`
+            - if the `leaf` index is less than half the size of the `leaves`
         list then the right side must reach root and vice versa
 
         ## Args:
-            - leafs: List of leafs
+            - leaves: List of leaves
             - proof: Accumulated proof
             - leaf: Leaf for which to create the proof
 
@@ -113,25 +111,25 @@ class MerkleTree:
         """
 
         try:
-            index = leafs.index(leaf)
+            index = leaves.index(leaf)
         except ValueError as err:
-            msg = f"Leaf: {leaf} does not exist in the tree: {leafs}"
+            msg = f"Leaf: {leaf} does not exist in the tree: {leaves}"
             raise ValueError(msg) from err
 
-        if is_power_2(len(leafs)) is False:
-            return self.mix_tree(leafs, [], index)
+        if is_power_2(len(leaves)) is False:
+            return self.mix_tree(leaves, [], index)
 
-        if len(leafs) == 2:
+        if len(leaves) == 2:
             if index == 1:
-                proof.append(Node(data=leafs[0], side=Side.LEFT))
+                proof.append(Node(data=leaves[0], side=Side.LEFT))
             else:
-                proof.append(Node(data=leafs[1], side=Side.RIGHT))
+                proof.append(Node(data=leaves[1], side=Side.RIGHT))
             proof.reverse()
             return proof
 
-        left, right = half(leafs)
+        left, right = half(leaves)
 
-        if index < len(leafs) / 2:
+        if index < len(leaves) / 2:
             proof.append(Node(data=self.make_root(right), side=Side.RIGHT))
             return self.make_proof(left, proof, leaf)
         else:
