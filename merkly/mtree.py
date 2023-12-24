@@ -46,7 +46,7 @@ class MerkleTree:
         return f"""MerkleTree(\nraw_leafs: {self.raw_leafs}\nleafs: {self.leafs}\nshort_leafs: {self.short(self.leafs)})"""
 
     def short(self, data: List[str]) -> List[str]:
-        return [f"{x[:4]}..." for x in data]
+        return [x[:2] for x in data]
 
     @property
     def root(self) -> bytes:
