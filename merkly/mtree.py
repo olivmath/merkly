@@ -40,23 +40,25 @@ class MerkleTree:
         self.short_leafs: List[str] = self.short(self.leafs)
 
     def __hash_leafs(self, leafs: List[str]) -> List[str]:
-        return list(map(lambda x: self.hash_function(x.encode(), b""), leafs))
+        return list(map(lambda x: self.hash_function(x.encode(), bytes()), leafs))
 
     def __repr__(self) -> str:
         return f"""MerkleTree(\nraw_leafs: {self.raw_leafs}\nleafs: {self.leafs}\nshort_leafs: {self.short(self.leafs)})"""
 
     def short(self, data: List[str]) -> List[str]:
-        return [f"{x[:4]}..." for x in data]
+        return [x[:2] for x in data]
 
     @property
     def root(self) -> bytes:
         return self.make_root(self.leafs)
 
     def proof(self, raw_leaf: str) -> List[Node]:
-        return self.make_proof(self.leafs, [], self.hash_function(raw_leaf, ""))
+        return self.make_proof(
+            self.leafs, [], self.hash_function(raw_leaf.encode(), bytes())
+        )
 
-    def verify(self, proof: List[str], raw_leaf: str) -> bool:
-        full_proof = [self.hash_function(raw_leaf, "")]
+    def verify(self, proof: List[bytes], raw_leaf: str) -> bool:
+        full_proof = [self.hash_function(raw_leaf.encode(), bytes())]
         full_proof.extend(proof)
 
         def concat_nodes(left: Node, right: Node) -> Node:
@@ -78,18 +80,22 @@ class MerkleTree:
 
         return reduce(concat_nodes, full_proof).data == self.root
 
-    def make_root(self, leafs: List[str]) -> List[str]:
-        if len(leafs) == 1:
-            return leafs
+    def make_root(self, leafs: List[bytes]) -> List[str]:
+        while len(leafs) > 1:
+            next_level = []
+            for i in range(0, len(leafs) - 1, 2):
+                next_level.append(self.hash_function(leafs[i], leafs[i + 1]))
 
-        return self.make_root(
-            [
-                self.hash_function(pair[0], pair[1]) if len(pair) > 1 else pair[0]
-                for pair in slice_in_pairs(leafs)
-            ]
-        )
+            if len(leafs) % 2 == 1:
+                next_level.append(leafs[-1])
 
-    def make_proof(self, leafs: List[str], proof: List[Node], leaf: str) -> List[Node]:
+            leafs = next_level
+
+        return leafs[0]
+
+    def make_proof(
+        self, leafs: List[bytes], proof: List[Node], leaf: bytes
+    ) -> List[Node]:
         """
         # Make a proof
 
@@ -126,14 +132,14 @@ class MerkleTree:
         left, right = half(leafs)
 
         if index < len(leafs) / 2:
-            proof.append(Node(data=self.make_root(right)[0], side=Side.RIGHT))
+            proof.append(Node(data=self.make_root(right), side=Side.RIGHT))
             return self.make_proof(left, proof, leaf)
         else:
-            proof.append(Node(data=self.make_root(left)[0], side=Side.LEFT))
+            proof.append(Node(data=self.make_root(left), side=Side.LEFT))
             return self.make_proof(right, proof, leaf)
 
     def mix_tree(
-        self, leaves: List[str], proof: List[Node], leaf_index: int
+        self, leaves: List[bytes], proof: List[Node], leaf_index: int
     ) -> List[Node]:
         if len(leaves) == 1:
             return proof
@@ -148,7 +154,7 @@ class MerkleTree:
 
         return self.mix_tree(self.up_layer(leaves), proof, leaf_index // 2)
 
-    def up_layer(self, leaves: List[str]) -> List[str]:
+    def up_layer(self, leaves: List[bytes]) -> List[bytes]:
         new_layer = []
         for pair in slice_in_pairs(leaves):
             if len(pair) == 1:
