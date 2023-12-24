@@ -6,22 +6,22 @@ import time
 def create_merkle_tree_root_10_leaves():
     leafs = [str(i) for i in range(10)]
     tree = MerkleTree(leafs)
-    result = "f8b45f3031274577651c6d43e7ec3f7361e82b2295e24a9b369693354d3a2db8"
-    assert tree.root == result
+    result = "2a3eb5e4fd7ca38eebd660d4b9879fd3e235cd240772bccdfadfa6c1529b4711"
+    assert tree.root.hex() == result
 
 
 def create_merkle_tree_root_100_leaves():
     leafs = [str(i) for i in range(100)]
     tree = MerkleTree(leafs)
-    result = "8e92f7efa075e532b920ef39adb04a0147ac84d99315584dbd2a1cb868019c35"
-    assert tree.root == result
+    result = "b46bf20bce2aafc0abe89f56509648c98fbad9f969d12869b40b4472845e2318"
+    assert tree.root.hex() == result
 
 
 def create_merkle_tree_root_1000_leaves():
     leafs = [str(i) for i in range(1000)]
     tree = MerkleTree(leafs)
-    result = "e66024476f6ef8f431f07dca6ea0d10dd904dda4b47488a49e75f8671ba733ee"
-    assert tree.root == result
+    result = "fc0bdf832532d9d94510c8643720f63f22db9996f07965e1d1da9fb0d3fd7144"
+    assert tree.root.hex() == result
 
 
 @pytest.mark.benchmark(group="MerkleTreeRoot", timer=time.time)
