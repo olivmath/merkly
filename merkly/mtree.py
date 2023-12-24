@@ -15,6 +15,7 @@ from merkly.utils import (
     validate_leafs,
 )
 
+
 class MerkleTree:
     """
     # 🌳 Merkle Tree implementation
