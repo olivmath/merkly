@@ -19,7 +19,7 @@ class InvalidHashFunctionError(Exception):
     """Exception raised for invalid hash function."""
 
     def __init__(self) -> None:
-        self.message = "Must type of: (str) -> str"
+        self.message = "Must type of: (bytes, bytes) -> bytes"
         super().__init__(self.message)
 
 
@@ -89,7 +89,9 @@ def slice_in_pairs(list_item: list):
 
 
 def validate_leafs(leafs: List[str]):
-    if len(leafs) < 2:
+    size = len(leafs)
+
+    if size < 2:
         raise Exception("Invalid size, need > 2")
 
     a = isinstance(leafs, List)
