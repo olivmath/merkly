@@ -33,6 +33,14 @@ jobs:
           pip install pytest
           pip install -e .
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+      - name: Install Node.js dependencies
+        run: |
+          cd test/merkletreejs
+          yarn install
       - name: Test with pytest
         run: |
           pytest -m "not benchmark" -vv
