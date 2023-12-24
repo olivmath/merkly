@@ -1,0 +1,10 @@
+{
+  "name": "merkletreejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "merkletreejs": "^0.3.11",
+    "web3": "^4.3.0"
+  }
+}
