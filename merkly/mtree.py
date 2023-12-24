@@ -80,16 +80,18 @@ class MerkleTree:
 
         return reduce(concat_nodes, full_proof).data == self.root
 
-    def make_root(self, leafs: List[str]) -> List[str]:
-        if len(leafs) == 1:
-            return leafs
+    def make_root(self, leafs: List[bytes]) -> List[str]:
+        while len(leafs) > 1:
+            next_level = []
+            for i in range(0, len(leafs) - 1, 2):
+                next_level.append(self.hash_function(leafs[i], leafs[i + 1]))
 
-        return self.make_root(
-            [
-                self.hash_function(pair[0], pair[1]) if len(pair) > 1 else pair[0]
-                for pair in slice_in_pairs(leafs)
-            ]
-        )
+            if len(leafs) % 2 == 1:
+                next_level.append(leafs[-1])
+
+            leafs = next_level
+
+        return leafs[0]
 
     def make_proof(
         self, leafs: List[bytes], proof: List[Node], leaf: bytes
@@ -130,10 +132,10 @@ class MerkleTree:
         left, right = half(leafs)
 
         if index < len(leafs) / 2:
-            proof.append(Node(data=self.make_root(right)[0], side=Side.RIGHT))
+            proof.append(Node(data=self.make_root(right), side=Side.RIGHT))
             return self.make_proof(left, proof, leaf)
         else:
-            proof.append(Node(data=self.make_root(left)[0], side=Side.LEFT))
+            proof.append(Node(data=self.make_root(left), side=Side.LEFT))
             return self.make_proof(right, proof, leaf)
 
     def mix_tree(
