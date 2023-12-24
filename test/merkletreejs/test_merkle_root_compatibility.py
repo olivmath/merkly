@@ -3,7 +3,6 @@ import subprocess
 import json
 
 
-
 @mark.merkletreejs
 def test_merkle_root_compatibility_between_merkletreejs_and_merkly():
     result = subprocess.run(["yarn"], check=False)
@@ -29,4 +28,3 @@ def test_merkle_root_compatibility_between_merkletreejs_and_merkly():
     merkle_root_py = json.loads(result_py.stdout)
 
     assert merkle_root_js == merkle_root_py
-
