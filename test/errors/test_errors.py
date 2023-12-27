@@ -25,3 +25,13 @@ def test_invalid_hash_function_error():
             ["a", "b", "c", "d"],
             invalid_hash_function,
         )
+
+
+def test_empty_tree_root():
+    mtree = MerkleTree(['a', 'b', 'c', 'd'])
+    mtree.leaves = []
+
+    with raises(ValueError) as error:
+        mtree.root
+
+    assert str(error.value) == 'Cannot get root of an empty tree'

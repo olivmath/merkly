@@ -80,6 +80,9 @@ class MerkleTree:
         return reduce(concat_nodes, full_proof).data == self.root
 
     def make_root(self, leaves: List[bytes]) -> bytes:
+        if len(leaves) == 0:
+            raise ValueError("Cannot get root of an empty tree")
+
         while len(leaves) > 1:
             next_level = []
             for i in range(0, len(leaves) - 1, 2):
