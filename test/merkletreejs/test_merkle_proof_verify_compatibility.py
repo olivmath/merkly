@@ -28,10 +28,9 @@ def test_merkle_proof_verify_compatibility_between_merkletreejs_and_merkly():
 
     proof_py = []
     for node in data_js["proof"]:
-        side = Side.RIGHT if node['position'] == 'right' else Side.LEFT
-        data = bytes.fromhex(node['data'])
+        side = Side.RIGHT if node["position"] == "right" else Side.LEFT
+        data = bytes.fromhex(node["data"])
         proof_py.append(Node(data=data, side=side))
-
 
     leaves = ["a", "b", "c", "d", "e", "f", "g", "h"]
     mtree = MerkleTree(leaves, sha256)
