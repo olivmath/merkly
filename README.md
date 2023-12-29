@@ -160,18 +160,22 @@ p = mtree.proof('b')
 # verify your proof of raw leaf
 assert mtree.verify(p, 'b') == True
 ```
-
 ## Roadmap
 
-| Feature                                                                                                   | Status | Priority |
-| --------------------------------------------------------------------------------------------------------- | ------ | -------- |
-| Create Root                                                                                               | ✅     | 🔥       |
-| Create Proof                                                                                              | ✅     | 🔥       |
-| Verify Proof                                                                                              | ✅     | 🔥       |
-| Use any Hash function                                                                                     | ✅     | 🧐       |
-| Leafs of any size                                                                                         | ✅     | 🧐       |
-| Support **[OpenZeppelin](https://docs.openzeppelin.com/contracts/4.x/utilities#verifying_merkle_proofs)** | ⏰     | 🔥       |
-| Compatible with **[MerkleTreeJs](https://github.com/miguelmota/merkletreejs)**                            | ⏰     | 🔥       |
+| Feature                               | Status         | Version |
+| ------------------------------------- | -------------- | ------- |
+| Auto deploy PyPi                      | ✅ Deployed    | 0.2.0   |
+| Create Root                           | ✅ Deployed    | 0.4.0   |
+| Create Proof                          | ✅ Deployed    | 0.5.0   |
+| Verify Proof                          | ✅ Deployed    | 0.6.0   |
+| Use any Hash function                 | ✅ Deployed    | 0.7.0   |
+| Leafs of any size                     | ✅ Deployed    | 0.8.0   |
+| Security deprecation pysha3           | ✅ Deployed    | 0.8.1   |
+| Compatible with MerkleTreeJs          | 🚂 Pre-Release | 1.0.0   |
+| First Issue solved by community       | 🚂 Pre-Release | 1.0.1   |
+| Accelerator code with Rust            | 🏗️ Alpha       | 1.1.0   |
+| Tutorial how to use with solidity     | 🖊️ Design      | x.x.x   |
+| Tutorial how to use with MerkleTreeJS | 🖊️ Design      | x.x.x   |
 
 ## Contributing
 
