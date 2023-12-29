@@ -172,7 +172,7 @@ assert mtree.verify(p, 'b') == True
 | Leafs of any size                     | ✅ Deployed    | 0.8.0   |
 | Security deprecation pysha3           | ✅ Deployed    | 0.8.1   |
 | Compatible with MerkleTreeJs          | 🚂 Pre-Release | 1.0.0   |
-| First Issue solved by community       | 🚂 Pre-Release | 1.0.1   |
+| First Issue solved by community       | 🚂 Pre-Release | 1.0.0   |
 | Accelerator code with Rust            | 🏗️ Alpha       | 1.1.0   |
 | Tutorial how to use with solidity     | 🖊️ Design      | x.x.x   |
 | Tutorial how to use with MerkleTreeJS | 🖊️ Design      | x.x.x   |
