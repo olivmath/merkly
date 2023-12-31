@@ -110,8 +110,6 @@ assert mtree.leaves == [
 assert mtree.short_leaves == [b':\xc2', b'\xb5U', b'\x0bB', b'\xf1\x91']
 
 
-######## comming soon!
-
 # human leaves
 assert mtree.human_leaves == [
     "3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb",
@@ -120,7 +118,7 @@ assert mtree.human_leaves == [
     "f1918e8562236eb17adc8502332f4c9c82bc14e19bfc0aa10ab674ff75b3d2f3",
 ]
 # shorted human hashed leaves
-assert mtree.human_short_leaves = ["3ac2", "b555", "0b42", "f191"]
+assert mtree.human_short_leaves == ["3ac2", "b555", "0b42", "f191"]
 ```
 
 **Creating a Root**
@@ -146,8 +144,14 @@ mtree = MerkleTree(['a', 'b', 'c', 'd'])
 
 # get proof of a `raw` leaf
 assert mtree.proof('b') == [
-    Node(data=b"3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb", side=Side.LEFT),
-    Node(data=b"d253a52d4cb00de2895e85f2529e2976e6aaaa5c18106b68ab66813e14415669", side=Side.RIGHT)
+    Node(
+        data=b"3ac225168df54212a25c1c01fd35bebfea408fdac2e31ddd6f80a4bbf9a5f1cb",
+        side=Side.LEFT
+    ),
+    Node(
+        data=b"d253a52d4cb00de2895e85f2529e2976e6aaaa5c18106b68ab66813e14415669",
+        side=Side.RIGHT
+    )
 ]
 ```
 
@@ -190,7 +194,8 @@ assert mtree.verify(p, 'b') == True
 | Security deprecation pysha3           | ✅ Deployed | 0.8.1   |
 | Compatible with MerkleTreeJs          | ✅ Deployed | 1.0.0   |
 | First Issue solved by community       | ✅ Deployed | 1.0.0   |
-| Accelerator code with Rust            | 🏗️ Alpha    | 1.1.0   |
+| Human readable leaves                 | ✅ Deployed | 1.1.0   |
+| Accelerator code with Rust            | 🏗️ Alpha    | 1.2.0   |
 | Tutorial how to use with solidity     | 🖊️ Design   | x.x.x   |
 | Tutorial how to use with MerkleTreeJS | 🖊️ Design   | x.x.x   |
 

@@ -165,3 +165,11 @@ class MerkleTree:
                 data = self.hash_function(pair[0], pair[1])
                 new_layer.append(data)
         return new_layer
+
+    @property
+    def human_leaves(self) -> List[str]:
+        return [leaf.hex() for leaf in self.leaves]
+
+    @property
+    def human_short_leaves(self) -> List[str]:
+        return [leaf.hex() for leaf in self.short_leaves]
