@@ -34,9 +34,7 @@
 ## Table of Contents
 
 - [Credits](#credits)
-- [How to install](#how-to-install)
-- [How it works](#how-it-works)
-- [How to use](#how-to-use)
+- [Documentation](#Documentation)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
@@ -45,7 +43,9 @@
 
 [![GitHub Contributors Image](https://contrib.rocks/image?repo=olivmath/merkly)](https://github.com/olivmath/merkly/graphs/contributors)
 
-## How to install
+## Documentation
+
+**HOW TO INSTALL**
 
 ```
 poetry add merkly
@@ -55,9 +55,18 @@ poetry add merkly
 pip install merkly
 ```
 
-## How to works
+**HOW TO WORKS**
 
-- _We use keccak-256 under-the-hood if you dont pass your hash function_
+<div style="background-color: yellow; padding: 10px; border-left: 6px solid red;">
+  <strong>Atenção!</strong> Este é um alerta importante.
+</div>
+
+> **Nota:** Este é um alerta ou nota importante.
+
+!!! warning "Atenção"
+Este é um alerta importante.
+
+- `We use keccak-256 under-the-hood if you dont pass your hash function`
 
 This library provides a clean and easy to use implementation of the Merkle Tree with the following features:
 
@@ -66,7 +75,7 @@ This library provides a clean and easy to use implementation of the Merkle Tree 
 - Create Proof
 - Verify Proof
 
-## How to Use
+**HOW TO USE**
 
 **Create a Merkle Tree**
 
@@ -163,20 +172,20 @@ assert mtree.verify(p, 'b') == True
 
 ## Roadmap
 
-| Feature                               | Status         | Version |
-| ------------------------------------- | -------------- | ------- |
-| Auto deploy PyPi                      | ✅ Deployed    | 0.2.0   |
-| Create Root                           | ✅ Deployed    | 0.4.0   |
-| Create Proof                          | ✅ Deployed    | 0.5.0   |
-| Verify Proof                          | ✅ Deployed    | 0.6.0   |
-| Use any Hash function                 | ✅ Deployed    | 0.7.0   |
-| Leafs of any size                     | ✅ Deployed    | 0.8.0   |
-| Security deprecation pysha3           | ✅ Deployed    | 0.8.1   |
-| Compatible with MerkleTreeJs          | ✅ Deployed    | 1.0.0   |
-| First Issue solved by community       | ✅ Deployed    | 1.0.0   |
-| Accelerator code with Rust            | 🏗️ Alpha       | 1.1.0   |
-| Tutorial how to use with solidity     | 🖊️ Design      | x.x.x   |
-| Tutorial how to use with MerkleTreeJS | 🖊️ Design      | x.x.x   |
+| Feature                               | Status      | Version |
+| ------------------------------------- | ----------- | ------- |
+| Auto deploy PyPi                      | ✅ Deployed | 0.2.0   |
+| Create Root                           | ✅ Deployed | 0.4.0   |
+| Create Proof                          | ✅ Deployed | 0.5.0   |
+| Verify Proof                          | ✅ Deployed | 0.6.0   |
+| Use any Hash function                 | ✅ Deployed | 0.7.0   |
+| Leafs of any size                     | ✅ Deployed | 0.8.0   |
+| Security deprecation pysha3           | ✅ Deployed | 0.8.1   |
+| Compatible with MerkleTreeJs          | ✅ Deployed | 1.0.0   |
+| First Issue solved by community       | ✅ Deployed | 1.0.0   |
+| Accelerator code with Rust            | 🏗️ Alpha    | 1.1.0   |
+| Tutorial how to use with solidity     | 🖊️ Design   | x.x.x   |
+| Tutorial how to use with MerkleTreeJS | 🖊️ Design   | x.x.x   |
 
 ## Contributing
 
