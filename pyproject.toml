@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "merkly"
-version = "0.8.2"
+version = "1.0.2"
 description = "🌳 The simple and easy implementation of Merkle Tree"
 authors = ["Lucas Oliveira <olivmath@protonmail.com>"]
 repository = "https://github.com/olivmath/merkly.git"
@@ -14,6 +14,20 @@ keywords = [
     "keccak256",
     "blockchain",
 ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Security :: Cryptography"
+]
 
 [tool.poetry.dependencies]
     pycryptodome = "^3.19.0"
@@ -22,7 +36,7 @@ keywords = [
 matplotlib = "^3.8.2"
 
 [tool.poetry.dev-dependencies]
-    conventional-pre-commit = "^2.1.1"
+    conventional-pre-commit = "^3.0.0"
     pre-commit = "^3.0.3"
     coverage = "^7.2.7"
     pyclean = "^2.2.0"
@@ -36,3 +50,9 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 w-t = "scripts.poetry:w_t"
 lint = "scripts.poetry:lint"
+
+[tool.pytest.ini_options]
+markers = [
+    "merkletreejs: marks tests as merkletreejs (deselect with '-m \"not merkletreejs\"')",
+    "benchmark: marks tests as benchmark (deselect with '-m \"not benchmark\"')",
+]

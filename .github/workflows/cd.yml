@@ -32,7 +32,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
         run: |
-          pytest -vv
+          pytest -m "not benchmark and not merkletreejs" -vv
 
   deploy:
     runs-on: ubuntu-latest

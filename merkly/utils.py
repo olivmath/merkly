@@ -19,11 +19,11 @@ class InvalidHashFunctionError(Exception):
     """Exception raised for invalid hash function."""
 
     def __init__(self) -> None:
-        self.message = "Must type of: (str) -> str"
+        self.message = "Must type of: (bytes, bytes) -> bytes"
         super().__init__(self.message)
 
 
-def keccak(data: str) -> str:
+def keccak(data: bytes) -> bytes:
     """
     # Hash `data: str` using keccak256
     - params `data: str`
@@ -45,9 +45,9 @@ def keccak(data: str) -> str:
     """
 
     keccak_256 = cryptodome_keccak.new(digest_bits=256)
-    keccak_256.update(data.encode())
+    keccak_256.update(data)
 
-    return keccak_256.hexdigest()
+    return keccak_256.digest()
 
 
 def half(list_item: List[int]) -> Tuple[int, int]:
@@ -88,11 +88,23 @@ def slice_in_pairs(list_item: list):
     return [list_item[i : i + 2] for i in range(0, len(list_item), 2)]
 
 
-def hash_function_type_checking(hash_function: Callable[[str], str]) -> bool:
+def validate_leafs(leafs: List[str]):
+    size = len(leafs)
+
+    if size < 2:
+        raise Exception("Invalid size, need > 2")
+
+    a = isinstance(leafs, List)
+    b = all(isinstance(leaf, str) for leaf in leafs)
+    if not (a and b):
+        raise Exception("Invalid type of leafs")
+
+
+def validate_hash_function(hash_function: Callable[[bytes, bytes], bytes]):
     a = isinstance(hash_function, types.FunctionType)
     b = callable(hash_function)
     try:
-        c = isinstance(hash_function(str(), str()), str)
+        c = isinstance(hash_function(bytes(), bytes()), bytes)
     except TypeError:
         c = False
 

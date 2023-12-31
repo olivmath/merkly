@@ -1,17 +1,25 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: olivmath
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Describe a new Feature
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+- [ ] A clear and concise description of the new feature
+- [ ] Some context about WHY you want this new feature
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Describe what you expect! (Example)
+
+**I want Merkly to work like this:**
+
+```py
+import merkly
+
+data = []
+result = merkly.new_feature(data)
+
+assert result == ["new data very cool"]
+```
