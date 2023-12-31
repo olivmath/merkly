@@ -24,7 +24,10 @@ def test_merkle_root_rust():
         print(x.hex())
 
     result = tree.make_root(leafs)
-    assert result.hex() == "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd", "Rust merkle root"
+    assert (
+        result.hex()
+        == "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd"
+    ), "Rust merkle root"
 
 
 def test_merkle_root_python():
@@ -36,6 +39,5 @@ def test_merkle_root_python():
 
     result = tree.make_root(leafs)
     assert (
-        result[0]
-        == "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd"
+        result[0] == "6b403b6dbdd79d6bb882036292bbe89a57e10defabd5c6718e66321c79b96abd"
     ), "Rust merkle root"

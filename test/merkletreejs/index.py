@@ -2,13 +2,16 @@ from Crypto.Hash import keccak
 
 import hashlib
 
+
 def hashing(data):
     return hashlib.sha256(data.encode()).hexdigest()
+
 
 def hashing2(data: str):
     keccak_256 = keccak.new(digest_bits=256)
     keccak_256.update(data.encode())
     return keccak_256.hexdigest()
+
 
 class MerkleTree:
     def __init__(self, leaves):
@@ -31,12 +34,12 @@ class MerkleTree:
         return self.tree[-1][0] if self.tree else None
 
 
-
-leaves = ['a', 'b', 'c', 'd']
+leaves = ["a", "b", "c", "d"]
 tree = MerkleTree(leaves)
 
 root = tree.get_merkle_root()
 leafs = tree.leaves
 
-for i in leafs: print(i)
+for i in leafs:
+    print(i)
 print(root)
