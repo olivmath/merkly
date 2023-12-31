@@ -167,9 +167,9 @@ class MerkleTree:
         return new_layer
 
     @property
-    def human_leaves(self) -> list[str]:
+    def human_leaves(self) -> List[str]:
         return [leaf.hex() for leaf in self.leaves]
 
     @property
-    def human_short_leaves(self) -> list[str]:
+    def human_short_leaves(self) -> List[str]:
         return [leaf.hex() for leaf in self.short_leaves]
