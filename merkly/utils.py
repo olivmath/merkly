@@ -52,9 +52,9 @@ def keccak(data: bytes) -> bytes:
 
 def half(list_item: List[int]) -> Tuple[int, int]:
     """
-    # Slice a `x: list[int]` in a pairs
-    - params `x: list[int]`
-    - return `list: list[list[int]]
+    # Slice a `x: List[int]` in a pairs
+    - params `x: List[int]`
+    - return `list: List[List[int]]
 
     ```python
     >>> slicer([1,2,3,4])
@@ -72,9 +72,9 @@ def half(list_item: List[int]) -> Tuple[int, int]:
 
 def slice_in_pairs(list_item: list):
     """
-    # Slice a `x: list[int]` in pairs, pairs is sublist of 2 items
-    - params `x: list[int]`
-    - return `list: list[list[int]]
+    # Slice a `x: List[int]` in pairs, pairs is sublist of 2 items
+    - params `x: List[int]`
+    - return `list: List[List[int]]
 
     ```python
     >>> slicer([1,2,3,4])
