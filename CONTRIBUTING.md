@@ -2,25 +2,17 @@
 
 ## WORKFLOW
 
-1. Create and describe your **proposal/bug** in an _issue_.
-2. Create a new **branch** and **pull request** with the pattern `1-my-feature`.
+1. Create your **proposal/bug** in an _issue_.
+2. Create a new **branch** and **pull request** with the pattern:
+   - `feat/my-new-feature`.
+   - `docs/add-new-docs`.
+   - `test/add-a-test`.
+   - `fix/big-bug`.
+3. Open a PR for you _issue_ (or link with a existent)
+4. Await to `merge`
+5. Publish new change by `tag`
 
 <img width="1172" alt="Gitlab Flow" src="https://user-images.githubusercontent.com/50037567/165442258-072abfe6-2295-40d6-a573-92f851878c4c.png">
-
----
-
-## DEVELOPMENT ENVIRONMENT
-
-**pre-req**
-
-- [docker](https://docs.docker.com/engine/install/)
-- [vscode](https://code.visualstudio.com/download)
-- [remote container](https://code.visualstudio.com/docs/remote/containers)
-
-1. Update the image with `Dockerfile`
-2. Development and test inside a container before do `git push`
-
-<img width="784" alt="envdev" src="https://user-images.githubusercontent.com/50037567/167924906-e9791796-c673-49b6-957b-493b33745907.png">
 
 ---
 
@@ -29,18 +21,17 @@
 ```
 type(escope): short description
 
-What does the modification do?
-why was it modified?
-
+You need describe better?
+Write more here
 ```
 
 type
 
-- **deprecated!** compatibility break
 - **add** adds a new feature
 - **fix** fixes a bug
-- **remove** remove a peace of code
 - **update** does not add a feature or fix a bug
+- **remove** remove a peace of code
+- **security** update/fix some security matter code
 
 ---
 
