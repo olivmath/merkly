@@ -24,9 +24,8 @@ def test_merkle_root_rust_and_merkle_root_python():
 
     bytes_leaves = list(map(lambda x: x.encode(), leafs))
     hash_leaves = list(map(hashing, bytes_leaves))
-    assert hash_leaves == tree.leaves
 
-    resultrs = treers.make_root(hash_leaves)
-    resultpy = tree.make_root(hash_leaves)
+    print(tree.human_leaves)
+    treers.make_root(hash_leaves)
 
-    assert resultrs.hex() == resultpy.hex()
+    assert 1 == 2
