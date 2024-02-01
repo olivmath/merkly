@@ -12,7 +12,6 @@ def test_merkle_root_ffi(compile_rust_ffi):
     tree = MerkleTree(leaves_short)
     treers = MTreers()
 
-
     root = tree.root
     result = treers.make_root(leaves_bytes)
 
