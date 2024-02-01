@@ -1,0 +1,14 @@
+[package]
+name = "accelerator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tiny-keccak = { version = "2.0.2", features = ["keccak"] }
+
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+strip = true
