@@ -41,9 +41,12 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Set up Rust
+      - name: Set up Rust Minimal Nightly
         uses: actions-rs/toolchain@v1
-
+        with:
+          profile: minimal
+          toolchain: nightly
+    
       - name: Install Node.js dependencies
         run: |
           cd test/merkletreejs
