@@ -1,16 +1,12 @@
 {
-	"name": "Existing Dockerfile",
-	"context": "..",
-	"dockerFile": "./Dockerfile",
-	"postCreateCommand": "poetry install && pip install --upgrade pip",
-	"settings": {
-		"python.pythonPath": "."
-	},
-	"extensions": [
-		"bungcip.better-toml",
-		"mhutchie.git-graph",
-		"Tyriar.sort-lines",
-		"ms-python.python",
-		"eamodio.gitlens"
-	]
+  "name": "Existing Dockerfile",
+  "context": "..",
+  "dockerFile": "./Dockerfile",
+  "extensions": [
+    "bungcip.better-toml",
+    "mhutchie.git-graph",
+    "Tyriar.sort-lines",
+    "ms-python.python",
+    "eamodio.gitlens"
+  ]
 }
