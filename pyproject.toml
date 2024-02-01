@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "merkly"
-version = "1.1.0"
+version = "1.2.0-beta"
 description = "🌳 The simple and easy implementation of Merkle Tree"
 authors = ["Lucas Oliveira <olivmath@protonmail.com>"]
 repository = "https://github.com/olivmath/merkly.git"
@@ -26,21 +26,22 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Security :: Cryptography"
+    "Topic :: Security :: Cryptography",
 ]
 
 [tool.poetry.dependencies]
-    pycryptodome = "^3.19.0"
-    pydantic = "^1.10.2"
-    python = "^3.8"
+pycryptodome = "^3.19.0"
+pydantic = "^1.10.2"
+python = "^3.8"
+keccaky = "^0.3.1"
 
 [tool.poetry.dev-dependencies]
-    conventional-pre-commit = "^3.0.0"
-    pre-commit = "^3.0.3"
-    coverage = "^7.2.7"
-    pyclean = "^2.2.0"
-    pytest = "^7.2.1"
-    black = "^23.1.0"
+conventional-pre-commit = "^3.0.0"
+pre-commit = "^3.0.3"
+coverage = "^7.2.7"
+pyclean = "^2.2.0"
+pytest = "^7.2.1"
+black = "^23.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -52,6 +53,7 @@ lint = "scripts.poetry:lint"
 
 [tool.pytest.ini_options]
 markers = [
+    "ffi: mark test as requiring Rust FFI compilation (deselect with '-m \"not ffi\"')",
     "merkletreejs: marks tests as merkletreejs (deselect with '-m \"not merkletreejs\"')",
     "benchmark: marks tests as benchmark (deselect with '-m \"not benchmark\"')",
 ]
