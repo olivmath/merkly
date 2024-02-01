@@ -56,7 +56,7 @@ class MerkleTree:
             self.leaves, [], self.hash_function(raw_leaf.encode(), bytes())
         )
 
-    def verify(self, proof: List[bytes], raw_leaf: str) -> bool:
+    def verify(self, proof: List[Node], raw_leaf: str) -> bool:
         full_proof = [self.hash_function(raw_leaf.encode(), bytes())]
         full_proof.extend(proof)
 
