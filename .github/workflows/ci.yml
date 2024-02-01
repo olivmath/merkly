@@ -44,9 +44,9 @@ jobs:
       - name: Set up Rust Minimal Nightly
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
           toolchain: nightly
-    
+          override: true
+
       - name: Install Node.js dependencies
         run: |
           cd test/merkletreejs
