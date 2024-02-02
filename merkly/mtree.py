@@ -134,10 +134,12 @@ class MerkleTree:
         left, right = half(leaves)
 
         if index < len(leaves) / 2:
-            proof.append(Node(data=self.make_root(right), side=Side.RIGHT))
+            node = Node(data=self.make_root(right), side=Side.RIGHT)
+            proof.append(node)
             return self.make_proof(left, proof, leaf)
         else:
-            proof.append(Node(data=self.make_root(left), side=Side.LEFT))
+            node = Node(data=self.make_root(left), side=Side.LEFT)
+            proof.append(node)
             return self.make_proof(right, proof, leaf)
 
     def mix_tree(
