@@ -8,13 +8,16 @@ from merkly.node import Node, Side
 
 
 @mark.merkletreejs
-def test_merkle_proof_verify_compatibility_between_merkletreejs_and_merkly():
+def test_merkle_proof_verify_compatibility_between_merkletreejs_and_merkly(
+    install_js_deps,
+):
     result = subprocess.run(["yarn"], check=False)
 
     assert result.returncode == 0, result.stderr
 
     result_js = subprocess.run(
-        ["node", "./test/merkletreejs/merkle_proof/merkle_proof_test.js"],
+        ["node", "./merkle_proof/merkle_proof_test.js"],
+        cwd="./test/merkletreejs",
         capture_output=True,
         text=True,
         check=True,

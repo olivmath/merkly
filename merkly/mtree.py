@@ -56,7 +56,7 @@ class MerkleTree:
             self.leaves, [], self.hash_function(raw_leaf.encode(), bytes())
         )
 
-    def verify(self, proof: List[bytes], raw_leaf: str) -> bool:
+    def verify(self, proof: List[Node], raw_leaf: str) -> bool:
         full_proof = [self.hash_function(raw_leaf.encode(), bytes())]
         full_proof.extend(proof)
 
@@ -134,10 +134,12 @@ class MerkleTree:
         left, right = half(leaves)
 
         if index < len(leaves) / 2:
-            proof.append(Node(data=self.make_root(right), side=Side.RIGHT))
+            node = Node(data=self.make_root(right), side=Side.RIGHT)
+            proof.append(node)
             return self.make_proof(left, proof, leaf)
         else:
-            proof.append(Node(data=self.make_root(left), side=Side.LEFT))
+            node = Node(data=self.make_root(left), side=Side.LEFT)
+            proof.append(node)
             return self.make_proof(right, proof, leaf)
 
     def mix_tree(

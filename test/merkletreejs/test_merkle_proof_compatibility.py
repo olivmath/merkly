@@ -4,14 +4,15 @@ import json
 
 
 @mark.merkletreejs
-def test_merkle_proof_compatibility_between_merkletreejs_and_merkly():
+def test_merkle_proof_compatibility_between_merkletreejs_and_merkly(install_js_deps):
     result = subprocess.run(["yarn"], check=False)
 
     assert result.returncode == 0, result.stderr
 
     result_js = subprocess.run(
-        ["node", "./test/merkletreejs/merkle_proof/merkle_proof_test.js"],
+        ["node", "./merkle_proof/merkle_proof_test.js"],
         capture_output=True,
+        cwd="./test/merkletreejs",
         text=True,
         check=True,
     )
