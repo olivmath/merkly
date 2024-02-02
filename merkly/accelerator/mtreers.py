@@ -1,7 +1,10 @@
-from ctypes import CDLL, POINTER, c_size_t, c_ubyte, c_bool
+from ctypes import CDLL, POINTER, Structure, c_size_t, c_ubyte
+from merkly.node import Node
 from typing import List
 
-from merkly.node import Node
+
+class MerkleProof(Structure):
+    _fields_ = [("ptr", POINTER(POINTER(c_ubyte))), ("len", c_size_t)]
 
 
 class MTreers:
@@ -14,12 +17,15 @@ class MTreers:
         self.lib.free_root.argtypes = [POINTER(c_ubyte)]
         self.lib.free_root.restype = None
 
-        # self.lib.make_proof.argtypes = [
-        #     POINTER(POINTER(c_ubyte)),
-        #     c_size_t,
-        #     POINTER(c_ubyte),
-        # ]
-        # self.lib.make_proof.restype = POINTER(POINTER(c_ubyte))
+        self.lib.make_proof.argtypes = [
+            POINTER(POINTER(c_ubyte)),
+            c_size_t,
+            POINTER(c_ubyte),
+        ]
+        self.lib.make_proof.restype = MerkleProof
+
+        self.lib.free_proof.argtypes = [POINTER(POINTER(c_ubyte))]
+        self.lib.free_proof.restype = None
 
         # self.lib.verify.argtypes = [
         #     POINTER(POINTER(c_ubyte)),
@@ -50,15 +56,22 @@ class MTreers:
             array_type = c_ubyte * 32
             leaves_pointers[i] = array_type(*leaf)
 
-        result_pointers = self.lib.make_proof(leaves_pointers, len_leaves, leaf_pointer)
+        result_struct: MerkleProof = self.lib.make_proof(
+            leaves_pointers, len_leaves, leaf_pointer
+        )
 
-        result = []
-        for i in range(len_leaves):
-            result = list(bytes(result_pointers[i][:33]))
-            flag = result[32]
-            data = result[:32]
-            result.append(Node(data=data, side=flag))
-        return result
+        proof = []
+        for i in range(result_struct.len):
+            node_ptr = result_struct.ptr[i]
+            node_data = bytes(node_ptr[:33])
+
+            flag = node_data[32]
+            data = node_data[:32]
+
+            proof.append(Node(data=data, side=flag))
+
+        self.lib.free_proof(result_struct.ptr, result_struct.len)
+        return proof
 
     def verify(self, proof: List[Node], leaf: bytes) -> bytes:
         proof_bytes = []
