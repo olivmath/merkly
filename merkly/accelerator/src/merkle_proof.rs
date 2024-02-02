@@ -25,11 +25,33 @@ pub unsafe extern "C" fn make_proof(
 
     let mut current_leaves = leaves.clone();
     while current_leaves.len() > 1 {
-        let half_size = current_leaves.len() / 2;
         let index = match leaves.iter().position(|x| *x == leaf) {
             Some(i) => i,
             None => panic!("Leaf does not exist in the tree"),
         };
+        if current_leaves.len() == 2 {
+            if index == 1 {
+                // proof.push(Node(data = leaves[0], side = Side.LEFT))
+                let left: [u8; 32] = current_leaves[0]
+                    .as_slice()
+                    .try_into()
+                    .expect("Failed to convert LEFT to array");
+                let node = make_node(left, 0);
+                proof.push(node);
+                break;
+            } else {
+                // proof.append(Node(data = leaves[1], side = Side.RIGHT))
+                let right: [u8; 32] = current_leaves[1]
+                    .as_slice()
+                    .try_into()
+                    .expect("Failed to convert RIGHT to array");
+                let node = make_node(right, 1);
+                proof.push(node);
+                break;
+            }
+        }
+
+        let half_size = current_leaves.len() / 2;
 
         // divide a lista em 2, left e right
         let (left, right) = current_leaves.split_at(half_size);
@@ -77,6 +99,7 @@ pub unsafe extern "C" fn make_proof(
         }
     }
 
+    proof.reverse();
     let len = proof.len();
     let proof_pointers: Vec<*mut u8> = proof
         .into_iter()
@@ -128,21 +151,40 @@ mod tests {
         ]
     }
 
+    fn setup_proof() -> Vec<[u8; 33]> {
+        vec![
+            [
+                181, 85, 61, 227, 21, 224, 237, 245, 4, 217, 21, 10, 248, 45, 175, 165, 196, 102,
+                127, 166, 24, 237, 10, 111, 25, 198, 155, 65, 22, 108, 85, 16, 1,
+            ],
+            [
+                210, 83, 165, 45, 76, 176, 13, 226, 137, 94, 133, 242, 82, 158, 41, 118, 230, 170,
+                170, 92, 24, 16, 107, 104, 171, 102, 129, 62, 20, 65, 86, 105, 1,
+            ],
+        ]
+    }
     #[test]
     fn test_make_root() {
         let leaves = setup_leaves();
+        let proof = setup_proof();
         let leaves_ptrs: Vec<*const u8> = leaves.iter().map(|leaf| leaf.as_ptr()).collect();
         let leaf = leaves[0];
         let leaf_ptr = leaf.as_ptr();
 
-        let merkle_proof = unsafe { make_proof(leaves_ptrs.as_ptr(), leaves.len(), leaf_ptr) };
-        let proof_slice = unsafe { slice::from_raw_parts(merkle_proof.ptr, merkle_proof.len) }
+        let result = unsafe { make_proof(leaves_ptrs.as_ptr(), leaves.len(), leaf_ptr) };
+        let result_slice = unsafe { slice::from_raw_parts(result.ptr, result.len) }
             .iter()
             .map(|leaf_ptr| unsafe { slice::from_raw_parts(*leaf_ptr, 33).to_vec() })
             .collect::<Vec<Vec<u8>>>();
 
-        assert_eq!(proof_slice, vec![vec![]]);
+        assert_eq!(result_slice, proof);
 
-        unsafe { free_proof(merkle_proof.ptr, merkle_proof.len) }
+        unsafe { free_proof(result.ptr, result.len) }
+        let result_dangling_ptr = unsafe { slice::from_raw_parts(result.ptr, result.len) }
+            .iter()
+            .map(|leaf_ptr| unsafe { slice::from_raw_parts(*leaf_ptr, 33).to_vec() })
+            .collect::<Vec<Vec<u8>>>();
+        let expected: Vec<Vec<u8>> = vec![vec![0; 33]; 2];
+        assert_eq!(result_dangling_ptr, expected);
     }
 }

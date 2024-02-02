@@ -29,18 +29,4 @@ def test_merkle_proof_ffi(compile_rust_ffi):
 
     proof = tree.proof("a")
     result = treers.make_proof(leaves_bytes, leaves_bytes[0])
-    assert proof == [
-        Node(
-            data=bytes.fromhex(
-                "b5553de315e0edf504d9150af82dafa5c4667fa618ed0a6f19c69b41166c5510"
-            ),
-            side=1,
-        ),
-        Node(
-            data=bytes.fromhex(
-                "d253a52d4cb00de2895e85f2529e2976e6aaaa5c18106b68ab66813e14415669"
-            ),
-            side=1,
-        ),
-    ]
-    assert result == []
+    assert proof == result

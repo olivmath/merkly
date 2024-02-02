@@ -1,5 +1,5 @@
-use std::slice;
 use crate::utils::hash_function;
+use std::slice;
 
 /// # Safety
 ///
