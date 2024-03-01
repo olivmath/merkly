@@ -38,7 +38,7 @@ classifiers = [
     conventional-pre-commit = "^3.0.0"
     pre-commit = "^3.0.3"
     coverage = "^7.2.7"
-    pyclean = "^2.2.0"
+    pyclean = "^3.0.0"
     pytest = "^7.2.1"
     black = "^24.1.1"
 
