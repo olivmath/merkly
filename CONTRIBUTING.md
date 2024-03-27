@@ -1,5 +1,12 @@
 # CONTRIBUTING
 
+## PRE-COMMIT
+
+**RUN BEFORE COMMIT**
+```
+pre-commit install
+```
+
 ## WORKFLOW
 
 1. Create your **proposal/bug** in an _issue_.
