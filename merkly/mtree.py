@@ -179,24 +179,24 @@ class MerkleTree:
         """
         Verify the validity of a Merkle proof for a given leaf against the expected root hash.
 
-        This method checks whether the provided proof can reconstruct the root hash 
-        from the given raw leaf data. It uses the specified hash function to compute 
+        This method checks whether the provided proof can reconstruct the root hash
+        from the given raw leaf data. It uses the specified hash function to compute
         the hashes along the proof path.
 
         Args:
-            proof (List[Node]): A list of Nodes representing the Merkle proof. Each Node 
+            proof (List[Node]): A list of Nodes representing the Merkle proof. Each Node
                 contains the hash of a sibling node and its position (left or right) in the tree.
-            raw_leaf (str): The raw leaf data (in string format) for which the proof is 
+            raw_leaf (str): The raw leaf data (in string format) for which the proof is
                 being verified. This data should correspond to a leaf in the Merkle tree.
-            root (str): The expected root hash (in hexadecimal string format) that the 
+            root (str): The expected root hash (in hexadecimal string format) that the
                 proof should reconstruct if valid.
             **kwargs: Optional keyword arguments. Can include:
-                - hash_function (Callable[[bytes, bytes], bytes]): A custom hash function 
-                  that takes two byte inputs and returns a hash. If not provided, 
+                - hash_function (Callable[[bytes, bytes], bytes]): A custom hash function
+                  that takes two byte inputs and returns a hash. If not provided,
                   the default `keccak` function is used.
 
         Returns:
-            bool: Returns True if the proof is valid and reconstructs the expected root 
+            bool: Returns True if the proof is valid and reconstructs the expected root
                   hash; otherwise, returns False.
 
         Example:

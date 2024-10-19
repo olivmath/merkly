@@ -90,6 +90,8 @@ def test_verify_merkle_proof_without_leaves():
     assert not invalid_result, "Expected proof to be invalid for incorrect leaf"
 
     # Test with a different root
-    different_root = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+    different_root = (
+        "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+    )
     different_result = MerkleTree.verify_proof(proof, leaf, different_root)
     assert not different_result, "Expected proof to be invalid for different root"
