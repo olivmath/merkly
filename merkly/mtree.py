@@ -173,3 +173,61 @@ class MerkleTree:
     @property
     def human_short_leaves(self) -> List[str]:
         return [leaf.hex() for leaf in self.short_leaves]
+
+    @staticmethod
+    def verify_proof(proof: List[Node], raw_leaf: str, root: str, **kwargs) -> bool:
+        """
+        Verify the validity of a Merkle proof for a given leaf against the expected root hash.
+
+        This method checks whether the provided proof can reconstruct the root hash 
+        from the given raw leaf data. It uses the specified hash function to compute 
+        the hashes along the proof path.
+
+        Args:
+            proof (List[Node]): A list of Nodes representing the Merkle proof. Each Node 
+                contains the hash of a sibling node and its position (left or right) in the tree.
+            raw_leaf (str): The raw leaf data (in string format) for which the proof is 
+                being verified. This data should correspond to a leaf in the Merkle tree.
+            root (str): The expected root hash (in hexadecimal string format) that the 
+                proof should reconstruct if valid.
+            **kwargs: Optional keyword arguments. Can include:
+                - hash_function (Callable[[bytes, bytes], bytes]): A custom hash function 
+                  that takes two byte inputs and returns a hash. If not provided, 
+                  the default `keccak` function is used.
+
+        Returns:
+            bool: Returns True if the proof is valid and reconstructs the expected root 
+                  hash; otherwise, returns False.
+
+        Example:
+            proof = [Node(data=b"abcd", side=Side.LEFT), Node(data=b"efgh", side=Side.RIGHT)]
+            leaf = "a"
+            root = "0xe35e6e14fdf91ecc6adfb74856bcd8a2c22544bd10bded94f2a9fecc77cf630b"
+            is_valid = MerkleTree.verify_proof(proof, leaf, root)
+        """
+        if not kwargs.get("hash_function", None):
+            hash_function: Callable[[bytes, bytes], bytes] = lambda x, y: keccak(x + y)
+        else:
+            hash_function = kwargs["hash_function"]
+
+        full_proof = [hash_function(raw_leaf.encode(), bytes())]
+        full_proof.extend(proof)
+
+        def concat_nodes(left: Node, right: Node) -> Node:
+            if isinstance(left, Node) is not True:
+                start_node = left
+                if right.side == Side.RIGHT:
+                    data = hash_function(start_node, right.data)
+                    return Node(data=data, side=Side.LEFT)
+                else:
+                    data = hash_function(right.data, start_node)
+                    return Node(data=data, side=Side.RIGHT)
+            else:
+                if right.side == Side.RIGHT:
+                    data = hash_function(left.data, right.data)
+                    return Node(data=data, side=Side.LEFT)
+                else:
+                    data = hash_function(right.data, left.data)
+                    return Node(data=data, side=Side.RIGHT)
+
+        return reduce(concat_nodes, full_proof).data.hex() == root
