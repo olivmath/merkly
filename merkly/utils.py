@@ -47,7 +47,6 @@ def keccak(data: bytes) -> bytes:
     return keccaky.hash_it_bytes(data)
 
 
-
 def half(list_item: List[int]) -> Tuple[int, int]:
     """
     # Slice a `x: List[int]` in a pairs
