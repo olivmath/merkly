@@ -1,5 +1,17 @@
 # CONTRIBUTING
 
+## HOW TO INSTALL
+
+```
+poetry install
+```
+
+## HOW TO RUN TESTS
+
+```
+pytest -m "not benchmark and not merkletreejs"
+```
+
 ## WORKFLOW
 
 1. Create your **proposal/bug** in an _issue_.
