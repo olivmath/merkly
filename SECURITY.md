@@ -4,19 +4,23 @@
 
 | Version | Supported |
 | ------- | --------- |
-| > 1.0.0 | ✅        |
-| > 0.8.1 | ✅        |
+| > 1.3.0 | ✅        |
+| 0.8.x   | ❌        |
 | 0.7.x   | ❌        |
 | 0.6.x   | ❌        |
 | 0.5.x   | ❌        |
 | 0.4.x   | ❌        |
 | < 0.4.x | ❌        |
 
-## Reporting a Feature
+## Reporting a Vulnerability (v1.3.0)
+
+- [x] The pyCrypto library and its module keccak are no longer actively maintained and have been deprecated.
+
+## Break change (v1.0.0)
 
 - [x] support `merkletreejs`
 
-## Reporting a Vulnerability
+## Reporting a Vulnerability (v0.8.1)
 
 - [x] pysha3 has deprecated, update to 0.8.1
 
