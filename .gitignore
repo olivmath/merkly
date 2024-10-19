@@ -3,7 +3,7 @@ node_modules
 .vscode
 *cache*
 sample*
-./env/
+.venv/
 .cov*
 *.xml
 *lock
