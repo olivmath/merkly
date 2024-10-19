@@ -4,12 +4,17 @@
 
 | Version | Supported |
 | ------- | --------- |
+| > 1.0.0 | ✅        |
 | > 0.8.1 | ✅        |
 | 0.7.x   | ❌        |
 | 0.6.x   | ❌        |
 | 0.5.x   | ❌        |
 | 0.4.x   | ❌        |
 | < 0.4.x | ❌        |
+
+## Reporting a Feature
+
+- [x] support `merkletreejs`
 
 ## Reporting a Vulnerability
 
