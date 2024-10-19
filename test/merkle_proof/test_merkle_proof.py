@@ -47,3 +47,49 @@ def test_verify_merkle(leaf: str):
 
     result = tree.proof(leaf)
     assert tree.verify(result, leaf)
+
+
+def get_data_from_api():
+    leaves = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+    ]
+    tree = MerkleTree(leaves)
+
+    leaf = "1"
+    proof = tree.proof(leaf)
+    return proof, leaf
+
+
+def test_verify_merkle_proof_without_leaves():
+    proof, leaf = get_data_from_api()
+
+    root = "3aa22c94ceb510827b04fa792ebdd7346eb2984ebb24e58dac66d7795c2af4e8"
+
+    # Test valid proof
+    result = MerkleTree.verify_proof(proof, leaf, root)
+    assert result, "Expected proof to be valid"
+
+    # Test invalid proof scenario
+    invalid_leaf = "invalid_leaf_data"
+    invalid_result = MerkleTree.verify_proof(proof, invalid_leaf, root)
+    assert not invalid_result, "Expected proof to be invalid for incorrect leaf"
+
+    # Test with a different root
+    different_root = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+    different_result = MerkleTree.verify_proof(proof, leaf, different_root)
+    assert not different_result, "Expected proof to be invalid for different root"
