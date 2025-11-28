@@ -199,6 +199,11 @@ assert mtree.verify(p, 'b') == True
 | Tutorial how to use with solidity     | 🖊️ Design   | x.x.x   |
 | Tutorial how to use with MerkleTreeJS | 🖊️ Design   | x.x.x   |
 
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=olivmath/merkly&type=date&legend=top-left)](https://www.star-history.com/#olivmath/merkly&type=date&legend=top-left)
+
 ## Contributing
 
 - Before read a code of conduct: **[CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)**
